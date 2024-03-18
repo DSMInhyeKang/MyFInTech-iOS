@@ -1,0 +1,57 @@
+PODS:
+  - Alamofire (4.9.1)
+  - FlexLayout (2.0.07)
+  - Kingfisher (7.8.1)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.1)
+  - Moya/RxSwift (13.0.1):
+    - Moya/Core
+    - RxSwift (~> 4.0)
+  - PinLayout (1.10.5)
+  - Result (4.1.0)
+  - RIBs (0.9.1):
+    - RxSwift (~> 4.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.5.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - FlexLayout
+  - Kingfisher
+  - Moya
+  - Moya/RxSwift
+  - PinLayout
+  - RIBs
+  - RxCocoa
+  - RxSwift
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - FlexLayout
+    - Kingfisher
+    - Moya
+    - PinLayout
+    - Result
+    - RIBs
+    - RxCocoa
+    - RxSwift
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  FlexLayout: a1facfeac0e0b397a74cfb1d83d1ba93b98f7c52
+  Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  PinLayout: f6c2b63a5a5b24864064e1d15c67de41b4e74748
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  RIBs: 879184fbca567425c488d6b3d14a9c5abfbf9d47
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+
+PODFILE CHECKSUM: 6c30e8699d916dd40eddb0c07c490bfb73ba1ba0
+
+COCOAPODS: 1.12.1
