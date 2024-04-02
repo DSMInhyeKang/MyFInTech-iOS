@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  PleaseSaveMyMoney
+//  MyFInTech-iOS
 //
-//  Created by 강인혜 on 3/13/24.
+//  Created by 강인혜 on 4/2/24.
 //
 
 import UIKit
