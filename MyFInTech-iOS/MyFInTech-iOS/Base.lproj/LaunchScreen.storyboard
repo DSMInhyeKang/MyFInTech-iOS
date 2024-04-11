@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,15 +14,63 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppName" translatesAutoresizingMaskIntoConstraints="NO" id="UEO-Jt-k8O">
+                                <rect key="frame" x="48" y="333.66666666666669" width="297" height="186.00000000000006"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet" translatesAutoresizingMaskIntoConstraints="NO" id="pnf-s8-azA">
+                                <rect key="frame" x="253" y="614" width="155" height="154"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cards" translatesAutoresizingMaskIntoConstraints="NO" id="x5Z-qg-8qB">
+                                <rect key="frame" x="249" y="67" width="144" height="155"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="Ckc-ZM-8gw">
+                                <rect key="frame" x="-11" y="569" width="150" height="159"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locker" translatesAutoresizingMaskIntoConstraints="NO" id="AMb-MP-qEb">
+                                <rect key="frame" x="0.0" y="123" width="116" height="142"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pnf-s8-azA" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.394402" id="28U-C7-ook"/>
+                            <constraint firstItem="AMb-MP-qEb" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.166667" id="3tt-1q-4b9"/>
+                            <constraint firstItem="UEO-Jt-k8O" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="890-dy-YOh"/>
+                            <constraint firstItem="pnf-s8-azA" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.180751" id="8Zj-4S-RIc"/>
+                            <constraint firstItem="pnf-s8-azA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="15" id="NL9-GN-l4g"/>
+                            <constraint firstItem="x5Z-qg-8qB" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.181925" id="OHB-Q6-aXA"/>
+                            <constraint firstItem="AMb-MP-qEb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PqC-cZ-hwg"/>
+                            <constraint firstItem="UEO-Jt-k8O" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-12" id="TwN-Mg-vq8"/>
+                            <constraint firstItem="AMb-MP-qEb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="64" id="cMi-JW-uiG"/>
+                            <constraint firstItem="AMb-MP-qEb" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.295165" id="fkf-7z-GMS"/>
+                            <constraint firstItem="x5Z-qg-8qB" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.366412" id="hNf-07-eT5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="UEO-Jt-k8O" secondAttribute="trailing" constant="48" id="lFp-hb-SI6"/>
+                            <constraint firstItem="Ckc-ZM-8gw" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.381679" id="lfZ-We-kL4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pnf-s8-azA" secondAttribute="bottom" constant="50" id="oBx-zt-T48"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ckc-ZM-8gw" secondAttribute="bottom" constant="90" id="oG7-kR-pfc"/>
+                            <constraint firstItem="x5Z-qg-8qB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="oWz-VX-JmQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="Ckc-ZM-8gw" secondAttribute="leading" constant="11" id="rco-8v-VH4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x5Z-qg-8qB" secondAttribute="trailing" id="tyk-4m-JPX"/>
+                            <constraint firstItem="Ckc-ZM-8gw" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.18662" id="yOP-Kj-Qzd"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AppName" width="290" height="186"/>
+        <image name="cards" width="652" height="683"/>
+        <image name="coin" width="504" height="632"/>
+        <image name="locker" width="472" height="532"/>
+        <image name="wallet" width="470" height="576"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

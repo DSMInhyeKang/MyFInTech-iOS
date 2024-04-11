@@ -11,6 +11,7 @@ target 'MyFInTech-iOS' do
 	pod 'RxSwift'
 	pod 'RxCocoa'
 	pod 'RIBs'
+	pod 'ReactorKit'
 	pod 'FlexLayout'
 	pod 'PinLayout'
 
