@@ -10,6 +10,7 @@ target 'MyFInTech-iOS' do
 	pod 'RxCocoa', '6.6.0'
 	pod 'FlexLayout'
 	pod 'PinLayout'
+	pod 'ReactorKit'
 
   # Pods for MyFInTech-iOS
 end

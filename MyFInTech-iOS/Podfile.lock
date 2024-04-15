@@ -9,18 +9,23 @@ PODS:
     - Moya/Core
     - RxSwift (~> 6.0)
   - PinLayout (1.10.5)
+  - ReactorKit (3.2.0):
+    - RxSwift (~> 6.0)
+    - WeakMapTable (~> 1.1)
   - RxCocoa (6.6.0):
     - RxRelay (= 6.6.0)
     - RxSwift (= 6.6.0)
   - RxRelay (6.6.0):
     - RxSwift (= 6.6.0)
   - RxSwift (6.6.0)
+  - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
   - FlexLayout
   - Moya (~> 15.0)
   - Moya/RxSwift (~> 15.0)
   - PinLayout
+  - ReactorKit
   - RxCocoa (= 6.6.0)
   - RxSwift (= 6.6.0)
 
@@ -30,19 +35,23 @@ SPEC REPOS:
     - FlexLayout
     - Moya
     - PinLayout
+    - ReactorKit
     - RxCocoa
     - RxRelay
     - RxSwift
+    - WeakMapTable
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   FlexLayout: a1facfeac0e0b397a74cfb1d83d1ba93b98f7c52
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   PinLayout: f6c2b63a5a5b24864064e1d15c67de41b4e74748
+  ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: bd066dccf812eb7674453cdc9ec02797f46b0e0c
+PODFILE CHECKSUM: eafc0ec9cca1b25e595186f8ecffc5a53b5d30c7
 
 COCOAPODS: 1.15.2
