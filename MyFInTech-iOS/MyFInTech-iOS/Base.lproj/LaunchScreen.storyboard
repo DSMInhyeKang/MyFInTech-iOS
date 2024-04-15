@@ -27,7 +27,7 @@
                                 <rect key="frame" x="249" y="67" width="144" height="155"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="Ckc-ZM-8gw">
-                                <rect key="frame" x="-11" y="569" width="150" height="159"/>
+                                <rect key="frame" x="-12" y="569" width="150" height="159"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locker" translatesAutoresizingMaskIntoConstraints="NO" id="AMb-MP-qEb">
                                 <rect key="frame" x="0.0" y="123" width="116" height="142"/>
@@ -52,7 +52,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pnf-s8-azA" secondAttribute="bottom" constant="50" id="oBx-zt-T48"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ckc-ZM-8gw" secondAttribute="bottom" constant="90" id="oG7-kR-pfc"/>
                             <constraint firstItem="x5Z-qg-8qB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="oWz-VX-JmQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="Ckc-ZM-8gw" secondAttribute="leading" constant="11" id="rco-8v-VH4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="Ckc-ZM-8gw" secondAttribute="leading" constant="12" id="rco-8v-VH4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x5Z-qg-8qB" secondAttribute="trailing" id="tyk-4m-JPX"/>
                             <constraint firstItem="Ckc-ZM-8gw" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.18662" id="yOP-Kj-Qzd"/>
                         </constraints>

@@ -1,62 +1,48 @@
 PODS:
-  - Alamofire (4.9.1)
+  - Alamofire (5.9.1)
   - FlexLayout (2.0.07)
-  - Kingfisher (7.8.1)
-  - Moya (13.0.1):
-    - Moya/Core (= 13.0.1)
-  - Moya/Core (13.0.1):
-    - Alamofire (~> 4.1)
-    - Result (~> 4.1)
-  - Moya/RxSwift (13.0.1):
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
     - Moya/Core
-    - RxSwift (~> 4.0)
+    - RxSwift (~> 6.0)
   - PinLayout (1.10.5)
-  - ReactorKit (1.2.1):
-    - RxSwift (>= 4.0.0)
-  - Result (4.1.0)
-  - RIBs (0.9.1):
-    - RxSwift (~> 4.0)
-  - RxCocoa (4.5.0):
-    - RxSwift (>= 4.4.2, ~> 4.4)
-  - RxSwift (4.5.0)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
 
 DEPENDENCIES:
-  - Alamofire
   - FlexLayout
-  - Kingfisher
-  - Moya
-  - Moya/RxSwift
+  - Moya (~> 15.0)
+  - Moya/RxSwift (~> 15.0)
   - PinLayout
-  - ReactorKit
-  - RIBs
-  - RxCocoa
-  - RxSwift
+  - RxCocoa (= 6.6.0)
+  - RxSwift (= 6.6.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - FlexLayout
-    - Kingfisher
     - Moya
     - PinLayout
-    - ReactorKit
-    - Result
-    - RIBs
     - RxCocoa
+    - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   FlexLayout: a1facfeac0e0b397a74cfb1d83d1ba93b98f7c52
-  Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
-  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   PinLayout: f6c2b63a5a5b24864064e1d15c67de41b4e74748
-  ReactorKit: 8be57f0527ad1ac2963cd5c338274a46a01e57a3
-  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  RIBs: 879184fbca567425c488d6b3d14a9c5abfbf9d47
-  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
-  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
 
-PODFILE CHECKSUM: 55b083235a7907be4ce7745e26ef38d11a0ae723
+PODFILE CHECKSUM: bd066dccf812eb7674453cdc9ec02797f46b0e0c
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2
