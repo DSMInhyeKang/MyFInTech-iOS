@@ -26,8 +26,8 @@ DEPENDENCIES:
   - Moya/RxSwift (~> 15.0)
   - PinLayout
   - ReactorKit
-  - RxCocoa (= 6.6.0)
-  - RxSwift (= 6.6.0)
+  - RxCocoa (~> 6.6.0)
+  - RxSwift (~> 6.6.0)
 
 SPEC REPOS:
   trunk:
@@ -52,6 +52,6 @@ SPEC CHECKSUMS:
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: eafc0ec9cca1b25e595186f8ecffc5a53b5d30c7
+PODFILE CHECKSUM: fbfe8498d56c26a9299f97bc39cf26d606ea3f86
 
 COCOAPODS: 1.15.2
