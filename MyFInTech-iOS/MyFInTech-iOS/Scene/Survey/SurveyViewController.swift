@@ -21,14 +21,14 @@ class SurveyViewController: UIViewController {
         $0.setTitle("예", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.titleLabel?.font = UIFont(name: "SFPro-Semibold", size: 20)
-        $0.backgroundColor = UIColor(named: "blue")
+        $0.backgroundColor = UIColor(named: "primary")
         return $0
     }(UIButton(type: .system))
     private let noButton: UIButton = {
         $0.setTitle("아니오", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.titleLabel?.font = UIFont(name: "SFPro-Semibold", size: 20)
-        $0.backgroundColor = UIColor(named: "blue")
+        $0.backgroundColor = UIColor(named: "primary")
         return $0
     }(UIButton(type: .system))
 

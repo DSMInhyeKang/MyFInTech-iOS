@@ -8,8 +8,12 @@
 import UIKit
 import FlexLayout
 import PinLayout
+import RxSwift
+import RxCocoa
+import GoogleSignIn
 
 class SignInViewController: UIViewController {
+    private let disposeBag = DisposeBag()
     private let flexContainer = UIView()
     private let signInLabel: UILabel = {
         $0.text = "로그인"
@@ -38,6 +42,29 @@ class SignInViewController: UIViewController {
                 $0.addItem(kakaoSignInButton)
                 $0.addItem(googleSignInButton)
             }
+        
+        googleSignInButton.rx.tap
+            .subscribe(onNext: {
+                GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+                    guard error == nil else { return }
+                    guard let signInResult = signInResult else { return }
+                    
+                    guard let userID = signInResult.user.userID else { return }
+                    guard let name = signInResult.user.profile?.name else { return }
+                    guard let email = signInResult.user.profile?.email else { return }
+                    
+                    print("userID : ", userID)
+                    print("name : ", name)
+                    print("email : ", email)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        kakaoSignInButton.rx.tap
+            .subscribe(onNext: {
+                
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewDidLayoutSubviews() {

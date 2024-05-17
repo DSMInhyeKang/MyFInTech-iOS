@@ -1,6 +1,31 @@
 PODS:
   - Alamofire (5.9.1)
+  - AppAuth (1.7.5):
+    - AppAuth/Core (= 1.7.5)
+    - AppAuth/ExternalUserAgent (= 1.7.5)
+  - AppAuth/Core (1.7.5)
+  - AppAuth/ExternalUserAgent (1.7.5):
+    - AppAuth/Core
   - FlexLayout (2.0.07)
+  - GoogleSignIn (7.1.0):
+    - AppAuth (< 2.0, >= 1.7.3)
+    - GTMAppAuth (< 5.0, >= 4.1.1)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GTMAppAuth (4.1.1):
+    - AppAuth/Core (~> 1.7)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher/Core (3.4.1)
+  - KakaoSDKAuth (2.22.1):
+    - KakaoSDKCommon (= 2.22.1)
+  - KakaoSDKCommon (2.22.1):
+    - KakaoSDKCommon/Common (= 2.22.1)
+    - KakaoSDKCommon/Network (= 2.22.1)
+  - KakaoSDKCommon/Common (2.22.1)
+  - KakaoSDKCommon/Network (2.22.1):
+    - Alamofire (~> 5.9.0)
+    - KakaoSDKCommon/Common (= 2.22.1)
+  - KakaoSDKUser (2.22.1):
+    - KakaoSDKAuth (= 2.22.1)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -12,27 +37,36 @@ PODS:
   - ReactorKit (3.2.0):
     - RxSwift (~> 6.0)
     - WeakMapTable (~> 1.1)
-  - RxCocoa (6.6.0):
-    - RxRelay (= 6.6.0)
-    - RxSwift (= 6.6.0)
-  - RxRelay (6.6.0):
-    - RxSwift (= 6.6.0)
-  - RxSwift (6.6.0)
+  - RxCocoa (6.7.1):
+    - RxRelay (= 6.7.1)
+    - RxSwift (= 6.7.1)
+  - RxRelay (6.7.1):
+    - RxSwift (= 6.7.1)
+  - RxSwift (6.7.1)
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
   - FlexLayout
+  - GoogleSignIn
+  - KakaoSDKUser
   - Moya (~> 15.0)
   - Moya/RxSwift (~> 15.0)
   - PinLayout
   - ReactorKit
-  - RxCocoa (~> 6.6.0)
-  - RxSwift (~> 6.6.0)
+  - RxCocoa
+  - RxSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AppAuth
     - FlexLayout
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
     - Moya
     - PinLayout
     - ReactorKit
@@ -43,15 +77,22 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   FlexLayout: a1facfeac0e0b397a74cfb1d83d1ba93b98f7c52
+  GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
+  GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
+  GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
+  KakaoSDKAuth: 347f1e6bf455689c81fb4eee3c9e02b622016fb4
+  KakaoSDKCommon: 596436353cec3865eb1475ecea1a7259d881c5ac
+  KakaoSDKUser: 31c3aaa36d32bd77f9a5acbe371e174b85a10a91
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   PinLayout: f6c2b63a5a5b24864064e1d15c67de41b4e74748
   ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
-  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
-  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
-  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  RxCocoa: f5609cb4637587a7faa99c5d5787e3ad582b75a4
+  RxRelay: 4151ba01152436b08271e08410135e099880eae5
+  RxSwift: b9a93a26031785159e11abd40d1a55bcb8057e52
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: fbfe8498d56c26a9299f97bc39cf26d606ea3f86
+PODFILE CHECKSUM: f4dea8353574b5e9f48533980154f36f4f5ea904
 
 COCOAPODS: 1.15.2

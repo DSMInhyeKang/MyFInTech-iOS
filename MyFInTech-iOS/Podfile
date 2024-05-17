@@ -7,11 +7,13 @@ target 'MyFInTech-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
 	pod 'Moya', '~> 15.0'
 	pod 'Moya/RxSwift', '~> 15.0'
-	pod 'RxSwift', '~> 6.6.0'
-	pod 'RxCocoa', '~> 6.6.0'
+	pod 'RxSwift'
+	pod 'RxCocoa'
 	pod 'FlexLayout'
 	pod 'PinLayout'
 	pod 'ReactorKit'
+	pod 'GoogleSignIn'
+	pod 'KakaoSDKUser'
 
   # Pods for MyFInTech-iOS
 end
