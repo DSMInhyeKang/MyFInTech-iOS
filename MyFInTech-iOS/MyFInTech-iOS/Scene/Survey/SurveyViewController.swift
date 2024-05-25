@@ -8,8 +8,14 @@
 import UIKit
 import FlexLayout
 import PinLayout
+import ReactorKit
+import RxCocoa
 
-class SurveyViewController: UIViewController {
+class SurveyViewController: UIViewController, View {
+    typealias Reactor = SurveyReactor
+    var disposeBag = DisposeBag()
+    var surveyAnswer = PublishRelay<Bool>()
+    
     private let flexContainer = UIView()
     private let questionTextView: UITextView = {
         $0.text = "정기적으로\n금액을 불입할\n의향이 있다."
@@ -32,6 +38,11 @@ class SurveyViewController: UIViewController {
         return $0
     }(UIButton(type: .system))
 
+    convenience init(reactor: SurveyReactor) {
+        self.init()
+        self.reactor = reactor
+    }
+    
     override func viewDidLoad() {
         view.backgroundColor = .white
         view.addSubview(flexContainer)
@@ -59,5 +70,27 @@ class SurveyViewController: UIViewController {
             .width(of: noButton)
             .height(of: noButton)
             .marginBottom(12)
+    }
+    
+    func bind(reactor: SurveyReactor) {
+        yesButton.rx.tap
+            .map { Reactor.Action.isAnswerYes }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        noButton.rx.tap
+            .map { Reactor.Action.isAnswerNo }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.answer }
+            .distinctUntilChanged()
+            .bind(to: surveyAnswer)
+            .disposed(by: disposeBag)
+        
+        surveyAnswer
+            .withUnretained(self)
+            .subscribe(onNext: { print($0.1) })
+            .disposed(by: disposeBag)
     }
 }
