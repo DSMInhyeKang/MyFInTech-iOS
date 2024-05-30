@@ -6,6 +6,7 @@ PODS:
   - AppAuth/Core (1.7.5)
   - AppAuth/ExternalUserAgent (1.7.5):
     - AppAuth/Core
+  - Differentiator (5.0.0)
   - FlexLayout (2.0.07)
   - GoogleSignIn (7.1.0):
     - AppAuth (< 2.0, >= 1.7.3)
@@ -26,6 +27,7 @@ PODS:
     - KakaoSDKCommon/Common (= 2.22.2)
   - KakaoSDKUser (2.22.2):
     - KakaoSDKAuth (= 2.22.2)
+  - KeychainSwift (24.0.0)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -40,6 +42,10 @@ PODS:
   - RxCocoa (6.7.1):
     - RxRelay (= 6.7.1)
     - RxSwift (= 6.7.1)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.7.1):
     - RxSwift (= 6.7.1)
   - RxSwift (6.7.1)
@@ -49,17 +55,20 @@ DEPENDENCIES:
   - FlexLayout
   - GoogleSignIn
   - KakaoSDKUser
-  - Moya (~> 15.0)
-  - Moya/RxSwift (~> 15.0)
+  - KeychainSwift
+  - Moya
+  - Moya/RxSwift
   - PinLayout
   - ReactorKit
   - RxCocoa
+  - RxDataSources
   - RxSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
+    - Differentiator
     - FlexLayout
     - GoogleSignIn
     - GTMAppAuth
@@ -67,10 +76,12 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - KeychainSwift
     - Moya
     - PinLayout
     - ReactorKit
     - RxCocoa
+    - RxDataSources
     - RxRelay
     - RxSwift
     - WeakMapTable
@@ -78,6 +89,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   FlexLayout: a1facfeac0e0b397a74cfb1d83d1ba93b98f7c52
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
@@ -85,14 +97,16 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 6a4c46f84c772a19f24121d7f5a42aa861ebc0e7
   KakaoSDKCommon: d4f76f3b900dbef924a09196c8eb9245aefcaf83
   KakaoSDKUser: 642c339cdb3722216241c541a843f6a4588f6cf4
+  KeychainSwift: 007c4647486e4563adca839cf02cef00deb3b670
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   PinLayout: f6c2b63a5a5b24864064e1d15c67de41b4e74748
   ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
   RxCocoa: f5609cb4637587a7faa99c5d5787e3ad582b75a4
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxRelay: 4151ba01152436b08271e08410135e099880eae5
   RxSwift: b9a93a26031785159e11abd40d1a55bcb8057e52
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: f4dea8353574b5e9f48533980154f36f4f5ea904
+PODFILE CHECKSUM: 5c3c31cd338e40ba91f5bc4d36682293306135ac
 
 COCOAPODS: 1.15.2

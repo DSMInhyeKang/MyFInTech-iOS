@@ -5,10 +5,12 @@ use_frameworks!
 
 target 'MyFInTech-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
-	pod 'Moya', '~> 15.0'
-	pod 'Moya/RxSwift', '~> 15.0'
+	pod 'Moya'
+	pod 'Moya/RxSwift'
+	pod 'KeychainSwift'
 	pod 'RxSwift'
 	pod 'RxCocoa'
+	pod 'RxDataSources'
 	pod 'FlexLayout'
 	pod 'PinLayout'
 	pod 'ReactorKit'

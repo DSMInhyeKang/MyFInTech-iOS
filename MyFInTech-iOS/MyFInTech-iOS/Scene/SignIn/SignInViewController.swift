@@ -60,11 +60,10 @@ class SignInViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        kakaoSignInButton.rx.tap
-            .subscribe(onNext: {
-                
-            })
-            .disposed(by: disposeBag)
+//        kakaoSignInButton.rx.tap
+//            .subscribe(onNext: {
+//            })
+//            .disposed(by: disposeBag)
     }
     
     override func viewDidLayoutSubviews() {
