@@ -10,7 +10,7 @@ import RxCocoa
 import FlexLayout
 import PinLayout
 
-class TypeDescriptionView: UIView {
+class TypeDescriptionView: UICollectionReusableView {
 //    let name = PublishRelay<String>()
 //    let detail = PublishRelay<String>()
 //    let target = PublishRelay<String>()
