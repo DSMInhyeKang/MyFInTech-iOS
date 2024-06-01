@@ -21,9 +21,10 @@ extension ProductSection: SectionModelType {
 }
 
 struct HeaderItem: Equatable {
-    var type: String
+    var name: String
     var detail: String
     var target: String
+    var types: [String]
 }
 
 struct SectionItem: Equatable {

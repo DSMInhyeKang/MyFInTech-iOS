@@ -27,7 +27,6 @@ class TypeDescriptionView: UICollectionReusableView {
         set { targetTextView.text = newValue }
     }
     
-    private let flexContainer = UIView()
     private let typeLabel: UILabel = {
         $0.font = .pretendard(.Bold, 32)
         $0.textColor = .black
@@ -76,8 +75,6 @@ class TypeDescriptionView: UICollectionReusableView {
     
     init(/*name: String, detail: String, target: String*/) {
         super.init(frame: .zero)
-        self.layer.borderColor = UIColor.red.cgColor
-        self.layer.borderWidth = 1
 
         self.flex
             .justifyContent(.center)
