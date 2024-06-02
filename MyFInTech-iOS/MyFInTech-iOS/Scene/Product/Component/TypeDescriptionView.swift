@@ -11,9 +11,6 @@ import FlexLayout
 import PinLayout
 
 class TypeDescriptionView: UICollectionReusableView {
-//    let name = PublishRelay<String>()
-//    let detail = PublishRelay<String>()
-//    let target = PublishRelay<String>()
     var name: String {
         get { typeLabel.text ?? "" }
         set { typeLabel.text = newValue }
@@ -30,15 +27,11 @@ class TypeDescriptionView: UICollectionReusableView {
     private let typeLabel: UILabel = {
         $0.font = .pretendard(.Bold, 32)
         $0.textColor = .black
-        $0.layer.borderColor = UIColor.yellow.cgColor
-        $0.layer.borderWidth = 1
         return $0
     }(UILabel())
     private let typeImageView: UIImageView = {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(named: "적금")
-        $0.layer.borderColor = UIColor.brown.cgColor
-        $0.layer.borderWidth = 1
         return $0
     }(UIImageView())
     private let detailTextView: UITextView = {
@@ -47,8 +40,6 @@ class TypeDescriptionView: UICollectionReusableView {
         $0.isEditable = false
         $0.isSelectable = false
         $0.isScrollEnabled = false
-        $0.layer.borderColor = UIColor.systemTeal.cgColor
-        $0.layer.borderWidth = 1
         return $0
     }(UITextView())
     private let recommendTagLabel: UILabel = {
@@ -58,8 +49,6 @@ class TypeDescriptionView: UICollectionReusableView {
         $0.textColor = .tag
         $0.backgroundColor = .blur
         $0.clipsToBounds = true
-        $0.layer.borderColor = UIColor.green.cgColor
-        $0.layer.borderWidth = 1
         return $0
     }(UILabel())
     private let targetTextView: UITextView = {
@@ -68,12 +57,10 @@ class TypeDescriptionView: UICollectionReusableView {
         $0.isEditable = false
         $0.isSelectable = false
         $0.isScrollEnabled = false
-        $0.layer.borderColor = UIColor.orange.cgColor
-        $0.layer.borderWidth = 1
         return $0
     }(UITextView())
     
-    init(/*name: String, detail: String, target: String*/) {
+    init() {
         super.init(frame: .zero)
 
         self.flex
