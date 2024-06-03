@@ -13,7 +13,9 @@ import RxCocoa
 import GoogleSignIn
 
 class SignInViewController: UIViewController {
+    let viewModel = SignInViewModel()
     private let disposeBag = DisposeBag()
+    
     private let flexContainer = UIView()
     private let signInLabel: UILabel = {
         $0.text = "로그인"
@@ -43,22 +45,8 @@ class SignInViewController: UIViewController {
                 $0.addItem(googleSignInButton)
             }
         
-        googleSignInButton.rx.tap
-            .subscribe(onNext: {
-                GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-                    guard error == nil else { return }
-                    guard let signInResult = signInResult else { return }
-                    
-                    guard let userID = signInResult.user.userID else { return }
-                    guard let name = signInResult.user.profile?.name else { return }
-                    guard let email = signInResult.user.profile?.email else { return }
-                    
-                    print("userID : ", userID)
-                    print("name : ", name)
-                    print("email : ", email)
-                }
-            })
-            .disposed(by: disposeBag)
+        bind()
+        
         
 //        kakaoSignInButton.rx.tap
 //            .subscribe(onNext: {
@@ -75,6 +63,39 @@ class SignInViewController: UIViewController {
         signInLabel.pin.top(80).left(24)
         kakaoSignInButton.pin.bottom(48).horizontally(28)
         googleSignInButton.pin.above(of: kakaoSignInButton, aligned: .center).marginBottom(10)
+    }
+    
+    func bind() {
+        let name = PublishRelay<String>()
+        let email = PublishRelay<String>()
+        let sub = PublishRelay<String>()
+        
+        googleSignInButton.rx.tap
+            .subscribe(onNext: {
+                GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+                    guard error == nil else { return }
+                    guard let signInResult = signInResult else { return }
+                    
+                    name.accept(signInResult.user.profile!.name)
+                    email.accept(signInResult.user.profile!.email)
+                    sub.accept(signInResult.user.userID!)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        let input = SignInViewModel.Input(
+            buttonTapped: googleSignInButton.rx.tap.asSignal(),
+            name: name.asDriver(onErrorJustReturn: ""),
+            email: email.asDriver(onErrorJustReturn: ""),
+            sub: sub.asDriver(onErrorJustReturn: "")
+        )
+        let output = viewModel.transform(input: input)
+        
+        viewModel.isSucceededSignIn
+            .subscribe(onNext: {_ in 
+                let home = HomeViewController()
+                
+            }).disposed(by: disposeBag)
     }
 }
 

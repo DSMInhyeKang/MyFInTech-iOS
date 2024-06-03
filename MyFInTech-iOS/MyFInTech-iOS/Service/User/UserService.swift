@@ -10,7 +10,7 @@ import Moya
 import RxSwift
 import RxCocoa
 
-class FriendService {
+class UserService {
     private let provider = MoyaProvider<UserAPI>(plugins: [MoyaLoggingPlugin()])
     
     func register(_ name: String, _ email: String, _ sub: String) ->  Completable {

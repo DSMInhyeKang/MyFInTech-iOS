@@ -43,24 +43,28 @@ class TypeSelectionView: UICollectionReusableView {
         $0.apportionsSegmentWidthsByContent = true
         return $0
     }(UISegmentedControl())
+    private let underlineView: UIView = {
+        $0.backgroundColor = .gray1
+        return $0
+    }(UIView())
     
     init() {
         super.init(frame: .zero)
         
         self.flex
             .direction(.row)
-            .justifyContent(.center)
             .define {
                 $0.addItem(segmentControl)
+                $0.addItem(underlineView)
             }
         
-        self.types.enumerated().forEach {
-            self.segmentControl.insertSegment(withTitle: $1, at: $0, animated: true)
-        }
-
         segmentControl.rx.selectedSegmentIndex
             .bind(to: self.selected)
             .disposed(by: disposeBag)
+        
+        selected.subscribe(onNext: {
+            print($0)
+        }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -69,8 +73,31 @@ class TypeSelectionView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.flex.layout()
         
+        self.types.enumerated().forEach {
+            self.segmentControl.insertSegment(withTitle: $1, at: $0, animated: true)
+            segmentControl.selectedSegmentIndex = 0
+        }
+        
+        self.flex.layout()
+        self.pin.height(40)
         segmentControl.pin.all()
+        underlineView.pin
+            .below(of: segmentControl)
+            .height(1)
+            .horizontally()
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+struct TypeSelectionView_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewPreview {
+            let typeSelectionView = TypeSelectionView()
+            typeSelectionView.types = ["정기적금", "자유적금", "청년적금", "청년도약계좌", "주택청약통장", "군인적금"]
+            return typeSelectionView
+        }
+    }
+}
+#endif
