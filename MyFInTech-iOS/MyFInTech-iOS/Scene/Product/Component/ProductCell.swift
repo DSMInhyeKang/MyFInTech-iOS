@@ -28,17 +28,18 @@ class ProductCell: UICollectionViewCell {
     
     private let rankingLabel: UILabel = {
         $0.font = .pretendard(.SemiBold, 18)
-        $0.textColor = .gray5
+        $0.textColor = .gray6
+        $0.textAlignment = .center
         return $0
     }(UILabel())
     private let companyLabel: UILabel = {
-        $0.font = .pretendard(.Bold, 18)
-        $0.textColor = .gray6
+        $0.font = .pretendard(.SemiBold, 18)
+        $0.textColor = .gray8
         return $0
     }(UILabel())
     private let nameLabel: UILabel = {
         $0.font = .pretendard(.Regular, 16)
-        $0.textColor = .gray5
+        $0.textColor = .gray6
         return $0
     }(UILabel())
     private let companyImageView: UIImageView = {
@@ -49,11 +50,21 @@ class ProductCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderWidth = 1
+        
         self.flex.direction(.row)
+            .alignItems(.start)
             .define {
                 $0.addItem(rankingLabel)
-                $0.addItem(companyLabel)
-                $0.addItem(nameLabel)
+                    .width(24)
+                    .marginHorizontal(24)
+                $0.addItem()
+                    .justifyContent(.start)
+                    .define { (sub) in
+                        sub.addItem(companyLabel)
+                        sub.addItem(nameLabel)
+                    }
                 $0.addItem(companyImageView)
             }
     }
@@ -65,17 +76,16 @@ class ProductCell: UICollectionViewCell {
         super.layoutSubviews()
         self.flex.layout()
         
+        self.pin.height(100)
+        
         rankingLabel.pin
-            .width(24)
-            .left(24)
             .vCenter()
         companyLabel.pin
             .top(28)
-            .left(24)
         nameLabel.pin
             .below(of: companyLabel)
             .marginTop(4)
-            .bottom(28)
+            .marginBottom(28)
         companyImageView.pin
             .width(48)
             .height(48)
@@ -83,3 +93,29 @@ class ProductCell: UICollectionViewCell {
             .vCenter()
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+struct ProductCell_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            UIViewPreview {
+                let cell = ProductCell()
+                cell.ranking = 1
+                cell.company = "신한은행"
+                cell.name = "2024 신한 프로야구 적금"
+                return cell
+            }
+            UIViewPreview {
+                let cell = ProductCell()
+                cell.ranking = 30
+                cell.company = "KB국민은행"
+                cell.name = "온국민 건강적금"
+                return cell
+            }
+        }
+        .frame(height: 200)
+    }
+}
+#endif

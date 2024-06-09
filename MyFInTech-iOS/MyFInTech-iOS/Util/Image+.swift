@@ -33,4 +33,16 @@ extension String {
         }
     }
 
+    func convertProduct() -> UIImage {
+        switch self {
+        case "예금":
+            return .예금
+        case "적금":
+            return .적금
+        case "랩(WRAP)":
+            return .랩
+        default:
+            return UIImage(systemName: "square.fill") ?? .init()
+        }
+    }
 }

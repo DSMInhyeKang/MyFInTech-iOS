@@ -19,7 +19,7 @@ class TypeSelectionView: UICollectionReusableView {
     private lazy var segmentControl: UISegmentedControl = {
         $0.setTitleTextAttributes(
             [
-                .foregroundColor: UIColor.gray4,
+                .foregroundColor: UIColor.gray2,
                 .font: UIFont.pretendard(.Medium, 18)
             ],
             for: .normal
@@ -95,7 +95,7 @@ struct TypeSelectionView_Preview: PreviewProvider {
     static var previews: some View {
         UIViewPreview {
             let typeSelectionView = TypeSelectionView()
-            typeSelectionView.types = ["정기적금", "자유적금", "청년적금", "청년도약계좌", "주택청약통장", "군인적금"]
+            typeSelectionView.types = ["정기적금", "자유적금", "청년적금"/*, "청년도약계좌", "주택청약통장"*/, "군인적금"]
             return typeSelectionView
         }
     }
