@@ -41,6 +41,10 @@ extension String {
             return .적금
         case "랩(WRAP)":
             return .랩
+        case "금":
+            return .금
+        case "외환":
+            return .외환
         default:
             return UIImage(systemName: "square.fill") ?? .init()
         }

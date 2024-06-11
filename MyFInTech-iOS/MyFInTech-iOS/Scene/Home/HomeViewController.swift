@@ -15,16 +15,6 @@ class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     private let disposeBag = DisposeBag()
     
-    private let scrollView: UIScrollView = {
-        $0.showsVerticalScrollIndicator = false
-        $0.backgroundColor = .clear
-        $0.isScrollEnabled = true
-        return $0
-    }(UIScrollView())
-    private let contentBackView: UIView = {
-        $0.backgroundColor = .white
-        return $0
-    }(UIView())
     private let titleLabel: UILabel = {
         $0.text = "🏆 상품별 추천 순위"
         $0.font = .pretendard(.Bold, 30)
@@ -45,25 +35,22 @@ class HomeViewController: UIViewController {
         flowLayout.minimumLineSpacing = 12
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         flowLayout.itemSize = CGSize(width: 168, height: 145)
-        $0.register(ProductTypeCell.self, forCellWithReuseIdentifier: "ProductTypeCell")
-        $0.showsVerticalScrollIndicator = false
-        $0.showsHorizontalScrollIndicator = false
-        $0.isScrollEnabled = false
         $0.collectionViewLayout = flowLayout
+        $0.register(ProductTypeCell.self, forCellWithReuseIdentifier: "ProductTypeCell")
+        $0.showsVerticalScrollIndicator = true
+        $0.isScrollEnabled = true
+        $0.backgroundColor = .clear
         return $0
     }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .gray0
         
-        view.addSubview(scrollView)
-        scrollView.flex.define {
-            $0.addItem(contentBackView).define { (back) in
-                back.addItem(titleLabel)
-                back.addItem(subTitleLabel)
-                back.addItem(productsCollectionView)
-            }
+        view.flex.define {
+            $0.addItem(titleLabel)
+            $0.addItem(subTitleLabel)
+            $0.addItem(productsCollectionView)
         }
         
         bind()
@@ -74,13 +61,8 @@ class HomeViewController: UIViewController {
         view.pin.all()
         view.flex.layout()
         
-        scrollView.pin.all(view.pin.safeArea)
-        contentBackView.pin
-            .all()
-            .width(100%)
-            .height(1200)
         titleLabel.pin
-            .top(30)
+            .top(86)
             .horizontally(24)
         subTitleLabel.pin
             .below(of: titleLabel)
@@ -89,9 +71,7 @@ class HomeViewController: UIViewController {
         productsCollectionView.pin
             .below(of: subTitleLabel)
             .marginTop(32)
-            .bottom(30)
-        
-        scrollView.contentSize = contentBackView.frame.size
+            .bottom(24)
     }
     
     func bind() {
