@@ -28,7 +28,7 @@ class ProductTypeCell: UICollectionViewCell {
     }(UIImageView())
     private let typeLabel: UILabel = {
         $0.font = .pretendard(.SemiBold, 20)
-        $0.textColor = .gray8
+        $0.textColor = .gray7
         return $0
     }(UILabel())
     private let detailLabel: UILabel = {

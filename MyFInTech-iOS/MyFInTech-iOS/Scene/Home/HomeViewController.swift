@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = {
         $0.showsVerticalScrollIndicator = false
         $0.backgroundColor = .clear
+        $0.isScrollEnabled = true
         return $0
     }(UIScrollView())
     private let contentBackView: UIView = {
@@ -25,20 +26,20 @@ class HomeViewController: UIViewController {
         return $0
     }(UIView())
     private let titleLabel: UILabel = {
-        $0.text = "금융 상품별 추천 순위"
-        $0.font = .pretendard(.Bold, 36)
-        $0.textColor = .black
+        $0.text = "🏆 상품별 추천 순위"
+        $0.font = .pretendard(.Bold, 30)
+        $0.textColor = .gray8
         return $0
     }(UILabel())
     private let subTitleLabel: UILabel = {
-        $0.text = "주인장 선정 내가 가입하고 싶은 Best 20 금융 상품 모음"
+        $0.text = "주인장 선정 내가 가입하고 싶은 금융 상품 모음집"
         $0.numberOfLines = 2
         $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .gray6
         return $0
     }(UILabel())
     private lazy var productsCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumInteritemSpacing = 8
         flowLayout.minimumLineSpacing = 12
@@ -50,18 +51,19 @@ class HomeViewController: UIViewController {
         $0.isScrollEnabled = false
         $0.collectionViewLayout = flowLayout
         return $0
-    }(UICollectionView())
+    }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         view.addSubview(scrollView)
-        scrollView.addSubview(contentBackView)
-        contentBackView.flex.define {
-            $0.addItem(titleLabel)
-            $0.addItem(subTitleLabel)
-            $0.addItem(productsCollectionView)
+        scrollView.flex.define {
+            $0.addItem(contentBackView).define { (back) in
+                back.addItem(titleLabel)
+                back.addItem(subTitleLabel)
+                back.addItem(productsCollectionView)
+            }
         }
         
         bind()
@@ -69,25 +71,27 @@ class HomeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        view.pin.all(view.pin.safeArea)
+        view.pin.all()
         view.flex.layout()
         
-        scrollView.pin.all()
+        scrollView.pin.all(view.pin.safeArea)
         contentBackView.pin
             .all()
             .width(100%)
-            .height(1000)
+            .height(1200)
         titleLabel.pin
-            .top(38)
-            .left(24)
+            .top(30)
+            .horizontally(24)
         subTitleLabel.pin
             .below(of: titleLabel)
-            .marginTop(12)
-            .left(24)
+            .marginTop(14)
+            .horizontally(24)
         productsCollectionView.pin
             .below(of: subTitleLabel)
-            .marginTop(60)
+            .marginTop(32)
             .bottom(30)
+        
+        scrollView.contentSize = contentBackView.frame.size
     }
     
     func bind() {
@@ -96,6 +100,17 @@ class HomeViewController: UIViewController {
                 cellIdentifier: "ProductTypeCell",
                 cellType: ProductTypeCell.self
             )) { _, type, cell in
+                cell.type = type[0]
+                cell.detail = type[1]
             }.disposed(by: disposeBag)
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+struct HomeViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        HomeViewController().toPreview()
+    }
+}
+#endif
