@@ -59,6 +59,7 @@ class TypeSelectionView: UICollectionReusableView {
             }
         
         segmentControl.rx.selectedSegmentIndex
+            .distinctUntilChanged()
             .bind(to: self.selected)
             .disposed(by: disposeBag)
         
@@ -74,6 +75,7 @@ class TypeSelectionView: UICollectionReusableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        segmentControl.removeAllSegments()
         self.types.enumerated().forEach {
             self.segmentControl.insertSegment(withTitle: $1, at: $0, animated: true)
             segmentControl.selectedSegmentIndex = 0

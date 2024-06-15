@@ -8,7 +8,7 @@ enum UserAPI {
 
 extension UserAPI: TargetType {
     var baseURL: URL {
-        URL(string: "https://localhost:8443")!
+        URL(string: "https://127.0.0.1:8443")!
     }
     
     var path: String {

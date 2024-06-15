@@ -6,12 +6,19 @@
 //
 
 import Foundation
+import Alamofire
 import Moya
 import RxSwift
 import RxCocoa
 
 class UserService {
-    private let provider = MoyaProvider<UserAPI>(plugins: [MoyaLoggingPlugin()])
+    private let manager: Session
+    private let provider: MoyaProvider<UserAPI>
+    
+    init() {
+        self.manager = Session(configuration: URLSessionConfiguration.default, serverTrustManager: CustomServerTrustManager())
+        self.provider = MoyaProvider<UserAPI>(session: manager, plugins: [MoyaLoggingPlugin()])
+    }
     
     func register(_ name: String, _ email: String, _ sub: String) ->  Completable {
         return Completable.create { [weak self] completable in
@@ -34,5 +41,15 @@ class UserService {
                     completable(.completed)
                 }, onFailure: { completable(.error($0)) })
         }
+    }
+}
+
+class CustomServerTrustManager : ServerTrustManager {
+    override func serverTrustEvaluator(forHost host: String) throws -> (any ServerTrustEvaluating)? {
+        return DisabledTrustEvaluator()
+    }
+    
+    public init() {
+        super.init(evaluators: [:])
     }
 }

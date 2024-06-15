@@ -16,62 +16,61 @@ class SignInViewModel: BaseViewModel {
     var disposeBag = DisposeBag()
     let userService = UserService()
     
-    let isSucceededSignIn = PublishRelay<Bool>()
+    let isSucceededSignIn = BehaviorRelay<Bool>(value: false)
+    var name = String()
+    var email = String()
+    var sub = String()
     
     struct Input {
         let buttonTapped: Signal<Void>
-        let name: Driver<String>
-        let email: Driver<String>
-        let sub: Driver<String>
+        let name: PublishRelay<String>
+        let email: PublishRelay<String>
+        let sub: PublishRelay<String>
     }
     
     struct Output {
     }
     
     func transform(input: Input) -> Output {
-        self.signIn(input: input)
+        Observable.combineLatest(input.name, input.email, input.sub)
+            .subscribe { name, email, sub in
+            self.name = name
+            self.email = email
+            self.sub = sub
+        }.disposed(by: disposeBag)
+        
+        input.buttonTapped.asObservable()
+            .subscribe(onNext: {
+                self.signIn()
+            })
+            .disposed(by: disposeBag)
             
         return Output()
     }
     
-    func signUp(input: Input) {
-        let registerParam = Driver.combineLatest(input.name, input.email, input.sub)
-        
-        Driver.combineLatest(input.name, input.email, input.sub).asObservable()
-            .flatMap { name, email, sub in
-                self.userService.register(name, email, sub)
-            }
+    func signUp() {
+        self.userService.register(self.name, self.email, self.sub)
             .subscribe {
                 switch $0 {
                 case .completed:
-                    self.signIn(input: input)
+                    self.signIn()
                 case .error(let error):
                     guard let statusCode = (error as? MoyaError)?.response?.statusCode else { return }
-                    print(statusCode)
+                    if statusCode == 409 { self.signIn() }
                 }
             }.disposed(by: disposeBag)
     }
     
-    func signIn(input: Input) {
-        let signInParam = Driver.combineLatest(input.email, input.sub)
-        
-        input.buttonTapped.asObservable()
-            .withLatestFrom(signInParam)
-            .flatMap { email, sub in
-                self.userService.signIn(email, sub)
-            }
+    func signIn() {
+        self.userService.signIn(self.email, self.sub)
             .subscribe {
                 switch $0 {
                 case .completed:
                     self.isSucceededSignIn.accept(true)
                 case .error(let error):
                     guard let statusCode = (error as? MoyaError)?.response?.statusCode else { return }
-
-                    if statusCode == 409 {
-                        self.signUp(input: input)
-                    }
+                    if statusCode == 404 { self.signUp() }
                 }
-            }
-            .disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
     }
 }

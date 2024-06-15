@@ -85,16 +85,19 @@ class SignInViewController: UIViewController {
         
         let input = SignInViewModel.Input(
             buttonTapped: googleSignInButton.rx.tap.asSignal(),
-            name: name.asDriver(onErrorJustReturn: ""),
-            email: email.asDriver(onErrorJustReturn: ""),
-            sub: sub.asDriver(onErrorJustReturn: "")
+            name: name,
+            email: email,
+            sub: sub
         )
-        let output = viewModel.transform(input: input)
+        let _ = viewModel.transform(input: input)
         
         viewModel.isSucceededSignIn
-            .subscribe(onNext: {_ in 
-                let home = HomeViewController()
-                
+            .subscribe(onNext: {
+                if $0 == true {
+                    let home = HomeViewController()
+                    home.modalPresentationStyle = .fullScreen
+                    self.present(home, animated: true)
+                }
             }).disposed(by: disposeBag)
     }
 }
