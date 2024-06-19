@@ -19,8 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
-        window?.rootViewController = SignInViewController()
-//        window?.rootViewController = SurveyResultController()
+        
+        TokenStorage.shared.removeToken()
+        
+        if let accessToken = TokenStorage.shared.accessToken {
+            window?.rootViewController = HomeViewController()
+        } else {
+            window?.rootViewController = SignInViewController()
+        }
+        
         window?.makeKeyAndVisible()
     }
 

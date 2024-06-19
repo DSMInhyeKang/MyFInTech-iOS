@@ -22,27 +22,15 @@ class SignInViewModel: BaseViewModel {
     var sub = String()
     
     struct Input {
-        let buttonTapped: Signal<Void>
-        let name: PublishRelay<String>
-        let email: PublishRelay<String>
-        let sub: PublishRelay<String>
+        let isInfoEntered: Signal<Bool>
     }
     
     struct Output {
     }
     
     func transform(input: Input) -> Output {
-        Observable.combineLatest(input.name, input.email, input.sub)
-            .subscribe { name, email, sub in
-            self.name = name
-            self.email = email
-            self.sub = sub
-        }.disposed(by: disposeBag)
-        
-        input.buttonTapped.asObservable()
-            .subscribe(onNext: {
-                self.signIn()
-            })
+        input.isInfoEntered.asObservable()
+            .subscribe { if $0 == true { self.signIn() } }
             .disposed(by: disposeBag)
             
         return Output()

@@ -12,12 +12,18 @@ extension String {
         switch self {
         case "광주은행", "전북은행":
             return .광주은행
+        case "수협은행":
+            return .수협은행
         case "신한은행", "제주은행":
             return .신한은행
         case "우리은행":
             return .우리은행
         case "카카오뱅크":
             return .카카오뱅크
+        case "케이뱅크":
+            return .케이뱅크
+        case "토스뱅크":
+            return .토스뱅크
         case "하나은행":
             return .하나은행
         case "경남은행", "부산은행":
@@ -26,8 +32,12 @@ extension String {
             return .ibk기업은행
         case "KB국민은행":
             return .kb국민은행
+        case "KDB산업은행":
+            return .kdb산업은행
         case "NH농협은행":
             return .nh농협은행
+        case "SC제일은행":
+            return .sc제일은행
         default:
             return UIImage(systemName: "circle.fill") ?? .init()
         }

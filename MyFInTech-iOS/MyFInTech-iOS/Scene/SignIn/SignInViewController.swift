@@ -66,9 +66,7 @@ class SignInViewController: UIViewController {
     }
     
     func bind() {
-        let name = PublishRelay<String>()
-        let email = PublishRelay<String>()
-        let sub = PublishRelay<String>()
+        let isInfoEntered = PublishRelay<Bool>()
         
         googleSignInButton.rx.tap
             .subscribe(onNext: {
@@ -76,19 +74,16 @@ class SignInViewController: UIViewController {
                     guard error == nil else { return }
                     guard let signInResult = signInResult else { return }
                     
-                    name.accept(signInResult.user.profile!.name)
-                    email.accept(signInResult.user.profile!.email)
-                    sub.accept(signInResult.user.userID!)
+                    self.viewModel.name = signInResult.user.profile!.name
+                    self.viewModel.email = signInResult.user.profile!.email
+                    self.viewModel.sub = signInResult.user.userID!
+                    
+                    isInfoEntered.accept(true)
                 }
             })
             .disposed(by: disposeBag)
         
-        let input = SignInViewModel.Input(
-            buttonTapped: googleSignInButton.rx.tap.asSignal(),
-            name: name,
-            email: email,
-            sub: sub
-        )
+        let input = SignInViewModel.Input(isInfoEntered: isInfoEntered.asSignal())
         let _ = viewModel.transform(input: input)
         
         viewModel.isSucceededSignIn

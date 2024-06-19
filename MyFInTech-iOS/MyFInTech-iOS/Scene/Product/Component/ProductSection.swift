@@ -21,9 +21,9 @@ extension ProductSection: SectionModelType {
 }
 
 struct HeaderItem: Equatable {
-    var name: String
-    var detail: String
-    var target: String
+//    var name: String
+//    var detail: String
+//    var target: String
     var types: [String]
 }
 
@@ -39,4 +39,10 @@ struct SectionItem: Equatable {
     var detail: String
     var URL: String
     var isBankingSector: Bool
+}
+
+struct Descriptions: Equatable {
+    var name: String
+    var detail: String
+    var target: String
 }
