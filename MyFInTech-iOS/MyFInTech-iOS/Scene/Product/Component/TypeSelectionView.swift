@@ -62,10 +62,6 @@ class TypeSelectionView: UICollectionReusableView {
             .distinctUntilChanged()
             .bind(to: self.selected)
             .disposed(by: disposeBag)
-        
-        selected.subscribe(onNext: {
-            print($0)
-        }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

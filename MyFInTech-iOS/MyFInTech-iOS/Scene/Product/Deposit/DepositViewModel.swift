@@ -13,6 +13,7 @@ import RxDataSources
 
 class DepositViewModel: BaseViewModel {
     var disposeBag = DisposeBag()
+    let productService = ProductService()
     
     let descriptions = BehaviorRelay<[Descriptions]>(value: [
         Descriptions(
@@ -56,16 +57,24 @@ class DepositViewModel: BaseViewModel {
             target: "상품별 가입 조건 정보 참고"
         )
     ])
-//    let products = BehaviorRelay<>(value: <#T##Element#>)
+    let allProducts = BehaviorRelay<[[DepositEntity]]>(value: [])
     
     struct Input {
+        let viewDidLoad: Observable<Void>
         
     }
     struct Output {
-        
     }
     
     func transform(input: Input) -> Output {
+        input.viewDidLoad
+            .flatMap { self.productService.fetchAllDeposits() }
+            .subscribe(
+                with: self, 
+                onNext: { _, data in
+                    self.allProducts.accept(data)
+                }
+            ).disposed(by: disposeBag)
         return Output()
     }
 }

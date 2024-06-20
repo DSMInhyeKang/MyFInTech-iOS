@@ -73,8 +73,20 @@ class DepositViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         scrollView.pin.all(view.pin.safeArea)
         scrollView.flex.layout()
-//
-//        typeDescriptionView.pin.all()
+        
+        flexContainer.pin.all()
+        flexContainer.pin.width(100%)
+        
+        descriptionView.pin
+            .top(to: flexContainer.edge.top)
+            .horizontally()
+        selectionView.pin
+            .top(to: descriptionView.edge.bottom)
+            .horizontally()
+        collectionView.pin
+            .top(to: selectionView.edge.bottom)
+            .horizontally()
+            .bottom()
     }
     
     func bind() {

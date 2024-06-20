@@ -12,14 +12,14 @@ enum ProductType {
     case savings
 }
 
-enum DepositType: String {
+enum DepositType: String, Decodable {
     case REGULAR = "정기예금"
 //    case CMA = "CMA"
     case PARKING = "파킹통장"
     case MMDA = "MMDA"
 }
 
-enum SavingsType: String {
+enum SavingsType: String, Decodable {
     case REGULAR = "정기적금"
     case FREE = "자유적금"
     case YOUTH = "청년적금"

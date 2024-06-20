@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 import Moya
 import RxSwift
 import RxCocoa
@@ -34,22 +33,12 @@ class UserService {
         return Completable.create { [weak self] completable in
             guard let self else { return Disposables.create() }
             return provider.rx.request(.signIn(email: email, sub: sub))
-                .map(SignInResponse.self)
+                .map(SignInResponseDTO.self)
                 .subscribe(onSuccess: {
                     TokenStorage.shared.accessToken = $0.accessToken
                     TokenStorage.shared.refreshToken = $0.refreshToken
                     completable(.completed)
                 }, onFailure: { completable(.error($0)) })
         }
-    }
-}
-
-class CustomServerTrustManager : ServerTrustManager {
-    override func serverTrustEvaluator(forHost host: String) throws -> (any ServerTrustEvaluating)? {
-        return DisabledTrustEvaluator()
-    }
-    
-    public init() {
-        super.init(evaluators: [:])
     }
 }
