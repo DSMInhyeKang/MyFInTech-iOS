@@ -83,6 +83,19 @@ class HomeViewController: UIViewController {
                 cell.type = type[0]
                 cell.detail = type[1]
             }.disposed(by: disposeBag)
+        
+        productsCollectionView.rx.itemSelected
+            .subscribe(onNext: { idx in
+                print(idx.row)
+                switch self.viewModel.types.value[idx.row][0] {
+                case "예금":
+                    self.navigationController?.pushViewController(DepositViewController(), animated: true)
+                case "적금":
+                    self.navigationController?.pushViewController(SavingsViewController(), animated: true)
+                default:
+                    print("어떤상품인가용")
+                }
+            }).disposed(by: disposeBag)
     }
 }
 

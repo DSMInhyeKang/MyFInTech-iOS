@@ -20,10 +20,13 @@ class ProductService {
     
     func fetchAllDeposits() -> Single<[[DepositEntity]]> {
         return provider.rx.request(.fetchAllDeposits)
-            .filterSuccessfulStatusCodes()
-            .catch { .error($0) }
             .map(FetchDepositsResponseDTO.self)
             .map { $0.toDomain() }
+            .do(onSuccess: { deposits in
+                print("Fetch Deposits: \(deposits)")
+            }, onError: { error in
+                print("Error : \(error)")
+            })
     }
     
     func fetchAllSavings() -> Single<[[SavingsEntity]]> {

@@ -12,13 +12,13 @@ import RxSwift
 import RxCocoa
 
 class DepositViewController: UIViewController {
-    private let viewModel = ProductViewModel()
+    private let viewModel = DepositViewModel()
     private let disposeBag = DisposeBag()
     
-    private let flexContainer = UIView()
     private let scrollView: UIScrollView = {
         return $0
     }(UIScrollView())
+    private let flexContainer = UIView()
     private let descriptionView = TypeDescriptionView()
     private let selectionView = TypeSelectionView()
     private lazy var collectionView: UICollectionView = {
@@ -34,6 +34,8 @@ class DepositViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(scrollView)
         
+        selectionView.types = ["정기예금", "파킹통장", "MMDA"]
+        
         scrollView.flex.define {
             $0.addItem(flexContainer).define { (sub) in
                 sub.addItem(descriptionView)
@@ -41,24 +43,6 @@ class DepositViewController: UIViewController {
                 sub.addItem(collectionView)
             }
         }
-//        view.addSubview(flexContainer)
-//
-//        typeDescriptionView.name = "적금"
-//        typeDescriptionView.detail = "적금은 일정 금액을 여러 번에 걸쳐 납입한 뒤, 만기 후 금액+이자를 받는 예금 형식 상품이에요. 목돈 마련에 적합해요."
-//        typeDescriptionView.target = """
-//        [정기적금] - 당장 여유 자금이 필요하지 않고, 매월 꾸준히 납입할 수 있는 사람
-//        [부금] - 목돈을 마련하고 싶지만, 당장 여유 자금이 충분하지 않아 대출을 원하는 사람
-//        [자유적금] - 수입이 일정하지 않고, 소액 저축이나 유동적인 자산 관리를 원하는 사람
-//        """
-//
-//        flexContainer.flex
-//            .direction(.column)
-//            .alignItems(.start)
-//            .define {
-//                $0.addItem(typeDescriptionView)
-//            }
-        
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -89,8 +73,37 @@ class DepositViewController: UIViewController {
             .bottom()
     }
     
-    func bind() {
-//        viewModel.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.descriptions.subscribe(onNext: { [unowned self] data in
+            descriptionView.name = data[selectionView.selected.value].name
+            descriptionView.detail = data[selectionView.selected.value].detail
+            descriptionView.target = data[selectionView.selected.value].target
+        })
+        descriptionView.name = viewModel.descriptions.value[selectionView.selected.value].name
+        descriptionView.detail = viewModel.descriptions.value[selectionView.selected.value].detail
+        descriptionView.target = viewModel.descriptions.value[selectionView.selected.value].target
+
+        let input = DepositViewModel.Input(viewDidLoad: Observable.just(()))
+        let output = viewModel.transform(input: input)
+        
+//        let current = BehaviorRelay<[DepositEntity]>(value: [])
+//        current.accept(output.products.value[selectionView.selected.value])
+        
+        output.products
+            .flatMap { Observable.just($0[self.selectionView.selected.value]) }
+            .bind(to: collectionView.rx.items(
+                cellIdentifier: "ProductCell",
+                cellType: ProductCell.self
+            )) { _, products, cell in
+//                cell.ranking = current.value.indices.filter(
+//                    { current.value[$0].name == products.name }
+//                ).first!
+                cell.ranking = 0
+                cell.company = products.company
+                cell.name = products.name
+            }.disposed(by: disposeBag)
     }
 }
 

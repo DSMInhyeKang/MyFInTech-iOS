@@ -23,9 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         TokenStorage.shared.removeToken()
         
         if let accessToken = TokenStorage.shared.accessToken {
-            window?.rootViewController = HomeViewController()
+            window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
         } else {
-            window?.rootViewController = SignInViewController()
+            window?.rootViewController = UINavigationController(rootViewController: SignInViewController()) 
         }
         
         window?.makeKeyAndVisible()

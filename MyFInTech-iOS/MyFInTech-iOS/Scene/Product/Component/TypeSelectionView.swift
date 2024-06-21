@@ -50,6 +50,7 @@ class TypeSelectionView: UICollectionReusableView {
     
     init() {
         super.init(frame: .zero)
+        segmentControl.selectedSegmentIndex = 0
         
         self.flex
             .direction(.row)
@@ -60,6 +61,7 @@ class TypeSelectionView: UICollectionReusableView {
         
         segmentControl.rx.selectedSegmentIndex
             .distinctUntilChanged()
+            .filter({ $0 >= 0 })
             .bind(to: self.selected)
             .disposed(by: disposeBag)
     }
@@ -72,6 +74,7 @@ class TypeSelectionView: UICollectionReusableView {
         super.layoutSubviews()
         
         segmentControl.removeAllSegments()
+        
         self.types.enumerated().forEach {
             self.segmentControl.insertSegment(withTitle: $1, at: $0, animated: true)
             segmentControl.selectedSegmentIndex = 0
