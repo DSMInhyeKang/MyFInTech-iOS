@@ -8,10 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import FlexLayout
-import PinLayout
+import SnapKit
 
-class TypeSelectionView: UICollectionReusableView {
+class TypeSelectionView: UIView {
     var types: [String] = []
     var selected =  BehaviorRelay<Int>(value: 0)
     let disposeBag = DisposeBag()
@@ -44,20 +43,17 @@ class TypeSelectionView: UICollectionReusableView {
         return $0
     }(UISegmentedControl())
     private let underlineView: UIView = {
-        $0.backgroundColor = .gray1
+        $0.backgroundColor = .gray3
         return $0
     }(UIView())
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = .white
         segmentControl.selectedSegmentIndex = 0
         
-        self.flex
-            .direction(.row)
-            .define {
-                $0.addItem(segmentControl)
-                $0.addItem(underlineView)
-            }
+        [segmentControl, underlineView].forEach { self.addSubview($0) }
         
         segmentControl.rx.selectedSegmentIndex
             .distinctUntilChanged()
@@ -80,13 +76,15 @@ class TypeSelectionView: UICollectionReusableView {
             segmentControl.selectedSegmentIndex = 0
         }
         
-        self.flex.layout()
-        self.pin.height(40)
-        segmentControl.pin.all()
-        underlineView.pin
-            .below(of: segmentControl)
-            .height(1)
-            .horizontally()
+        segmentControl.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        underlineView.snp.makeConstraints {
+            $0.top.equalTo(segmentControl.snp.bottom)
+            $0.height.equalTo(1)
+            $0.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
+        }
     }
 }
 

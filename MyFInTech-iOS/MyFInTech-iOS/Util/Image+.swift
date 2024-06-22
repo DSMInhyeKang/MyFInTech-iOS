@@ -30,6 +30,8 @@ extension String {
             return .BNK
         case "IBK기업은행":
             return .ibk기업은행
+        case "iM뱅크":
+            return .iM뱅크
         case "KB국민은행":
             return .kb국민은행
         case "KDB산업은행":

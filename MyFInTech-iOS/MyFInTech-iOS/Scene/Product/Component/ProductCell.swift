@@ -40,6 +40,7 @@ class ProductCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
         $0.font = .pretendard(.Regular, 16)
         $0.textColor = .gray6
+        $0.numberOfLines = 0
         return $0
     }(UILabel())
     private let companyImageView: UIImageView = {
@@ -49,9 +50,6 @@ class ProductCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.layer.borderColor = UIColor.red.cgColor
-        self.layer.borderWidth = 1
         
         self.flex.direction(.row)
             .alignItems(.start)
@@ -76,7 +74,7 @@ class ProductCell: UICollectionViewCell {
         super.layoutSubviews()
         self.flex.layout()
         
-        self.pin.height(100)
+//        self.pin.height(100)
         
         rankingLabel.pin
             .vCenter()
@@ -103,19 +101,26 @@ struct ProductCell_Preview: PreviewProvider {
             UIViewPreview {
                 let cell = ProductCell()
                 cell.ranking = 1
-                cell.company = "신한은행"
+                cell.company = "SC제일은행"
                 cell.name = "2024 신한 프로야구 적금"
                 return cell
             }
             UIViewPreview {
                 let cell = ProductCell()
                 cell.ranking = 30
-                cell.company = "KB국민은행"
+                cell.company = "KDB산업은행"
+                cell.name = "온국민 건강적금"
+                return cell
+            }
+            UIViewPreview {
+                let cell = ProductCell()
+                cell.ranking = 30
+                cell.company = "토스뱅크"
                 cell.name = "온국민 건강적금"
                 return cell
             }
         }
-        .frame(height: 200)
+        .frame(height: 300)
     }
 }
 #endif

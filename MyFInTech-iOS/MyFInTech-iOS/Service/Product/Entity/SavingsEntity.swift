@@ -15,10 +15,10 @@ struct SavingsEntity: Equatable, Hashable {
     let maxRate: String
     let defaultRate: String
     let target: String
-    let isProtected: Bool
     let detail: String
     let interest: String
     let url: String
+    let isProtected: Bool
     let isBankingSector: Bool
     
     init(
@@ -29,10 +29,10 @@ struct SavingsEntity: Equatable, Hashable {
         maxRate: String,
         defaultRate: String,
         target: String,
-        isProtected: Bool,
         detail: String,
         interest: String,
         url: String,
+        isProtected: Bool,
         isBankingSector: Bool
     ) {
         self.id = id
@@ -42,10 +42,10 @@ struct SavingsEntity: Equatable, Hashable {
         self.maxRate = maxRate
         self.defaultRate = defaultRate
         self.target = target
-        self.isProtected = isProtected
         self.detail = detail
         self.interest = interest
         self.url = url
+        self.isProtected = isProtected
         self.isBankingSector = isBankingSector
     }
 }

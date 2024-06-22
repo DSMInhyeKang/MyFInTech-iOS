@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import FlexLayout
-import PinLayout
+import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -16,6 +15,9 @@ class DepositViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let scrollView: UIScrollView = {
+        $0.showsVerticalScrollIndicator = false
+        $0.backgroundColor = .white
+        $0.contentInsetAdjustmentBehavior = .never
         return $0
     }(UIScrollView())
     private let flexContainer = UIView()
@@ -33,16 +35,14 @@ class DepositViewController: UIViewController {
         
         view.backgroundColor = .white
         view.addSubview(scrollView)
+        scrollView.addSubview(flexContainer)
+        [
+            descriptionView,
+            selectionView,
+            collectionView
+        ].forEach { flexContainer.addSubview($0) }
         
         selectionView.types = ["정기예금", "파킹통장", "MMDA"]
-        
-        scrollView.flex.define {
-            $0.addItem(flexContainer).define { (sub) in
-                sub.addItem(descriptionView)
-                sub.addItem(selectionView)
-                sub.addItem(collectionView)
-            }
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -55,55 +55,69 @@ class DepositViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        scrollView.pin.all(view.pin.safeArea)
-        scrollView.flex.layout()
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        flexContainer.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+        }
+        descriptionView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        selectionView.snp.makeConstraints {
+            $0.top.equalTo(descriptionView.snp.bottom)
+            $0.height.equalTo(48)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(selectionView.snp.bottom)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(500).priority(.low)
+            $0.horizontalEdges.equalToSuperview()
+        }
         
-        flexContainer.pin.all()
-        flexContainer.pin.width(100%)
-        
-        descriptionView.pin
-            .top(to: flexContainer.edge.top)
-            .horizontally()
-        selectionView.pin
-            .top(to: descriptionView.edge.bottom)
-            .horizontally()
-        collectionView.pin
-            .top(to: selectionView.edge.bottom)
-            .horizontally()
-            .bottom()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.descriptions.subscribe(onNext: { [unowned self] data in
-            descriptionView.name = data[selectionView.selected.value].name
-            descriptionView.detail = data[selectionView.selected.value].detail
-            descriptionView.target = data[selectionView.selected.value].target
-        })
-        descriptionView.name = viewModel.descriptions.value[selectionView.selected.value].name
-        descriptionView.detail = viewModel.descriptions.value[selectionView.selected.value].detail
-        descriptionView.target = viewModel.descriptions.value[selectionView.selected.value].target
-
+        collectionView.rx.observe(CGSize.self, "contentSize")
+            .compactMap { $0?.height }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] height in
+                self?.collectionView.snp.updateConstraints { $0.height.equalTo(height) }
+                self?.view.layoutIfNeeded()
+            }).disposed(by: disposeBag)
+    }
+    
+    func bind() {
         let input = DepositViewModel.Input(viewDidLoad: Observable.just(()))
         let output = viewModel.transform(input: input)
         
-//        let current = BehaviorRelay<[DepositEntity]>(value: [])
-//        current.accept(output.products.value[selectionView.selected.value])
-        
-        output.products
-            .flatMap { Observable.just($0[self.selectionView.selected.value]) }
-            .bind(to: collectionView.rx.items(
-                cellIdentifier: "ProductCell",
-                cellType: ProductCell.self
-            )) { _, products, cell in
-//                cell.ranking = current.value.indices.filter(
-//                    { current.value[$0].name == products.name }
-//                ).first!
-                cell.ranking = 0
-                cell.company = products.company
-                cell.name = products.name
-            }.disposed(by: disposeBag)
+        selectionView.selected
+            .subscribe(onNext: { [unowned self] idx in
+                descriptionView.name = viewModel.descriptions.value[idx].name
+                descriptionView.detail = viewModel.descriptions.value[idx].detail
+                descriptionView.target = viewModel.descriptions.value[idx].target
+                
+                collectionView.dataSource = nil
+                collectionView.delegate = nil
+                
+                output.products
+                    .filter({ $0.count > 0 })
+                    .flatMap { Observable.just($0[idx]) }
+                    .bind(to: collectionView.rx.items(
+                        cellIdentifier: "ProductCell",
+                        cellType: ProductCell.self
+                    )) { row, products, cell in
+                        cell.ranking = row + 1
+                        cell.company = products.company
+                        cell.name = products.name
+                    }.disposed(by: disposeBag)
+                
+            }).disposed(by: disposeBag)
     }
 }
 

@@ -15,10 +15,10 @@ struct DepositDTO: Decodable {
     let maxRate: String
     let defaultRate: String
     let target: String
-    let isProtected: Bool
     let detail: String
     let interest: String
     let url: String
+    let isProtected: Bool
     let isBankingSector: Bool
     
     enum CodingKeys: String, CodingKey {
@@ -31,18 +31,18 @@ struct DepositDTO: Decodable {
 extension DepositDTO {
     func toDomain() -> DepositEntity {
         .init(
-            id: 10000,
-            type: .REGULAR,
-            name: "",
-            company: "",
-            maxRate: "",
-            defaultRate: "",
-            target: "",
-            isProtected: true,
-            detail: "",
-            interest: "",
-            url: "",
-            isBankingSector: true
+            id: id,
+            type: type,
+            name: name,
+            company: company,
+            maxRate: maxRate,
+            defaultRate: defaultRate,
+            target: target,
+            detail: detail,
+            interest: interest,
+            url: url,
+            isProtected: isProtected,
+            isBankingSector: isBankingSector
         )
     }
 }

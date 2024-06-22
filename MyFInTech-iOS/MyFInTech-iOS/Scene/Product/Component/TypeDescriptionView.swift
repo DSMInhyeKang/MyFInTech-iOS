@@ -7,10 +7,9 @@
 
 import UIKit
 import RxCocoa
-import FlexLayout
-import PinLayout
+import SnapKit
 
-class TypeDescriptionView: UICollectionReusableView {
+class TypeDescriptionView: UIView {
     var name: String {
         get { typeLabel.text ?? "" }
         set { typeLabel.text = newValue }
@@ -60,22 +59,16 @@ class TypeDescriptionView: UICollectionReusableView {
         return $0
     }(UITextView())
     
-    init() {
-        super.init(frame: .zero)
-
-        self.flex
-            .justifyContent(.center)
-            .define {
-                $0.addItem(typeLabel)
-                $0.addItem(typeImageView)
-                $0.addItem(detailTextView)
-                    .paddingHorizontal(40)
-                $0.addItem(recommendTagLabel)
-                    .padding(4, 8)
-                    .cornerRadius(8)
-                $0.addItem(targetTextView)
-                    .paddingHorizontal(50)
-            }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        [
+            typeLabel,
+            typeImageView,
+            detailTextView,
+            recommendTagLabel,
+            targetTextView
+        ].forEach { self.addSubview($0) }
     }
     
     required init?(coder: NSCoder) {
@@ -84,30 +77,30 @@ class TypeDescriptionView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.flex.layout()
         
-        typeLabel.pin
-            .top(40)
-            .left(24)
-        typeImageView.pin
-            .below(of: typeLabel)
-            .marginTop(16)
-            .width(250)
-            .height(250)
-            .hCenter()
-        detailTextView.pin
-            .below(of: typeImageView)
-            .marginTop(40)            
-            .horizontally(44)
-        recommendTagLabel.pin
-            .below(of: detailTextView)
-            .marginTop(40)
-            .width(136)
-            .height(25)
-            .hCenter()
-        targetTextView.pin
-            .below(of: recommendTagLabel)
-            .marginTop(30)
-            .horizontally(50)
+        typeLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview().inset(24)
+        }
+        typeImageView.snp.makeConstraints {
+            $0.top.equalTo(typeLabel.snp.bottom).offset(16)
+            $0.width.height.equalTo(250)
+            $0.centerX.equalToSuperview()
+        }
+        detailTextView.snp.makeConstraints {
+            $0.top.equalTo(typeImageView.snp.bottom).offset(40)
+            $0.horizontalEdges.equalToSuperview().inset(28)
+        }
+        recommendTagLabel.snp.makeConstraints {
+            $0.top.equalTo(detailTextView.snp.bottom).offset(40)
+            $0.width.equalTo(136)
+            $0.height.equalTo(25)
+            $0.centerX.equalToSuperview()
+        }
+        targetTextView.snp.makeConstraints {
+            $0.top.equalTo(recommendTagLabel.snp.bottom).offset(30)
+            $0.horizontalEdges.equalToSuperview().inset(32)
+            $0.bottom.equalToSuperview().inset(40)
+        }
     }
 }
