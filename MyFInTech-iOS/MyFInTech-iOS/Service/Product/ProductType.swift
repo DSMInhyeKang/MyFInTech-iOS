@@ -21,6 +21,13 @@ enum DepositType: String, Decodable {
 enum SavingsType: String, Decodable {
     case REGULAR  // 정기적금
     case FREE  // 자유적금
-    case YOUTH // 청년적금
-    case SOLDIER // 군인적금
+    case YOUTH  // 청년적금
+    case SOLDIER  // 군인적금
+}
+
+enum CMAType: String, Decodable {
+    case CP  // 발행어음 + 종금형
+    case RP  // RP형 CMA
+    case MMF  // MMF형 CMA
+    case MMW  // MMW형 CMA
 }

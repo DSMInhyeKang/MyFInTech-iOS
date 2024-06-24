@@ -36,4 +36,12 @@ class ProductService {
             .map(FetchSavingsResponseDTO.self)
             .map { $0.toDomain() }
     }
+    
+    func fetchAllCMAs() -> Single<[[CMAEntity]]> {
+        return provider.rx.request(.fetchAllCMAs)
+            .filterSuccessfulStatusCodes()
+            .catch { .error($0) }
+            .map(FetchCMAsReponseDTO.self)
+            .map { $0.toDomain() }
+    }
 }

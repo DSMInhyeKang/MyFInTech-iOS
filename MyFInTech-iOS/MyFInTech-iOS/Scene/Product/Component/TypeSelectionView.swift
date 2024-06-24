@@ -8,7 +8,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import SnapKit
+import FlexLayout
+import PinLayout
 
 class TypeSelectionView: UIView {
     var types: [String] = []
@@ -43,7 +44,7 @@ class TypeSelectionView: UIView {
         return $0
     }(UISegmentedControl())
     private let underlineView: UIView = {
-        $0.backgroundColor = .gray3
+        $0.backgroundColor = .gray1
         return $0
     }(UIView())
     
@@ -53,7 +54,10 @@ class TypeSelectionView: UIView {
         self.backgroundColor = .white
         segmentControl.selectedSegmentIndex = 0
         
-        [segmentControl, underlineView].forEach { self.addSubview($0) }
+        self.flex.define {
+            $0.addItem(segmentControl)
+            $0.addItem(underlineView)
+        }
         
         segmentControl.rx.selectedSegmentIndex
             .distinctUntilChanged()
@@ -76,15 +80,15 @@ class TypeSelectionView: UIView {
             segmentControl.selectedSegmentIndex = 0
         }
         
-        segmentControl.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        underlineView.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp.bottom)
-            $0.height.equalTo(1)
-            $0.bottom.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-        }
+        segmentControl.pin
+            .all()
+            .height(42)
+        underlineView.pin
+            .below(of: segmentControl)
+            .marginTop(4)
+            .height(1.5)
+            .bottom()
+            .horizontally()
     }
 }
 

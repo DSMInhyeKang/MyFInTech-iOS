@@ -20,4 +20,11 @@ extension UIViewController {
         
         return layout
     }
+    
+    func flowLayout() -> UICollectionViewFlowLayout {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 100)
+        flowLayout.minimumLineSpacing = 1
+        return flowLayout
+    }
 }

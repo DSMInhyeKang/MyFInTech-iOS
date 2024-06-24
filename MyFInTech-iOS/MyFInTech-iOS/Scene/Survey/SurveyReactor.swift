@@ -18,14 +18,18 @@ final class SurveyReactor: Reactor {
     enum Action {
         case isAnswerYes
         case isAnswerNo
+        case isOver
     }
     
     enum Mutation {
         case setAnswer(Bool)
+        case showResult
     }
     
     struct State {
-        var answer = false
+        var answers: [Bool] = []
+        var cnt = 0
+        var type = ""
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -34,6 +38,8 @@ final class SurveyReactor: Reactor {
             return Observable.just(.setAnswer(true))
         case .isAnswerNo:
             return Observable.just(.setAnswer(false))
+        case .isOver:
+            return Observable.just(.showResult)
         }
     }
     
@@ -42,9 +48,14 @@ final class SurveyReactor: Reactor {
         
         switch mutation {
         case .setAnswer(let answer):
-            newState.answer = answer
+            newState.cnt += 1
+            newState.answers.append(answer)
+        case .showResult:
+            newState.type = ""
         }
         
         return newState
     }
+}
+extension SurveyReactor {
 }

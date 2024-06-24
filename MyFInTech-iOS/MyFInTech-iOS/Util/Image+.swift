@@ -47,9 +47,9 @@ extension String {
 
     func convertProduct() -> UIImage {
         switch self {
-        case "예금":
+        case "예금", "정기예금":
             return .예금
-        case "적금":
+        case "적금", "정기적금", "자유적금":
             return .적금
         case "랩(WRAP)":
             return .랩
@@ -57,6 +57,22 @@ extension String {
             return .금
         case "외환":
             return .외환
+        case "파킹통장":
+            return .파킹통장
+        case "군인적금/장병내일준비적금":
+            return .군인적금
+        case "청년적금/청년도약계좌":
+            return .청년적금
+        case "CMA":
+            return .CMA
+        case "RP형 CMA", "MMF형 CMA", "MMW형 CMA":
+            return .CMA_RP_MMF_MMW
+        case "암호화폐":
+            return .암호화폐
+        case "주식/ETF":
+            return .주식
+        case "ISA":
+            return .ISA
         default:
             return UIImage(systemName: "square.fill") ?? .init()
         }

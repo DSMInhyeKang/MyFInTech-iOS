@@ -50,6 +50,7 @@ class ProductCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .white
         
         self.flex.direction(.row)
             .alignItems(.start)

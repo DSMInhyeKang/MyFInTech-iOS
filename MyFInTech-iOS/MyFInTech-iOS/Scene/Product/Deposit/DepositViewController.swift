@@ -27,12 +27,14 @@ class DepositViewController: UIViewController {
         $0.register(ProductCell.self, forCellWithReuseIdentifier: "ProductCell")
         $0.showsVerticalScrollIndicator = false
         $0.isScrollEnabled = false
+        $0.backgroundColor = UIColor.gray1
         return $0
-    }(UICollectionView(frame: .zero, collectionViewLayout: createLayout()))
+    }(UICollectionView(frame: .zero, collectionViewLayout: flowLayout()))
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nil, bundle: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
         view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(flexContainer)
@@ -43,20 +45,13 @@ class DepositViewController: UIViewController {
         ].forEach { flexContainer.addSubview($0) }
         
         selectionView.types = ["정기예금", "파킹통장", "MMDA"]
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    override func viewDidLoad() {
-        view.backgroundColor = .white
+        
+        bind()
     }
     
     override func viewDidLayoutSubviews() {
         scrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
         }
         flexContainer.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
@@ -67,29 +62,15 @@ class DepositViewController: UIViewController {
         }
         selectionView.snp.makeConstraints {
             $0.top.equalTo(descriptionView.snp.bottom)
-            $0.height.equalTo(48)
+            $0.height.equalTo(46)
             $0.horizontalEdges.equalToSuperview()
         }
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(selectionView.snp.bottom)
+            $0.top.equalTo(selectionView.snp.bottom).offset(1.5)
             $0.bottom.equalToSuperview()
             $0.height.equalTo(500).priority(.low)
             $0.horizontalEdges.equalToSuperview()
         }
-        
-        bind()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        collectionView.rx.observe(CGSize.self, "contentSize")
-            .compactMap { $0?.height }
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] height in
-                self?.collectionView.snp.updateConstraints { $0.height.equalTo(height) }
-                self?.view.layoutIfNeeded()
-            }).disposed(by: disposeBag)
     }
     
     func bind() {
@@ -101,6 +82,7 @@ class DepositViewController: UIViewController {
                 descriptionView.name = viewModel.descriptions.value[idx].name
                 descriptionView.detail = viewModel.descriptions.value[idx].detail
                 descriptionView.target = viewModel.descriptions.value[idx].target
+                descriptionView.url = viewModel.attachedURL
                 
                 collectionView.dataSource = nil
                 collectionView.delegate = nil
@@ -116,8 +98,14 @@ class DepositViewController: UIViewController {
                         cell.company = products.company
                         cell.name = products.name
                     }.disposed(by: disposeBag)
-                
             }).disposed(by: disposeBag)
+        
+        collectionView.rx.observe(CGSize.self, "contentSize")
+            .compactMap { $0?.height }
+            .subscribe(onNext: { [weak self] height in
+                self?.collectionView.snp.updateConstraints { $0.height.equalTo(height) }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

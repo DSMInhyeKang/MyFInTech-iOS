@@ -89,9 +89,9 @@ class SignInViewController: UIViewController {
         viewModel.isSucceededSignIn
             .subscribe(onNext: {
                 if $0 == true {
-                    let home = HomeViewController()
-                    home.modalPresentationStyle = .fullScreen
-                    self.present(home, animated: true)
+                    let survey = SurveyViewController(reactor: SurveyReactor())
+                    survey.modalPresentationStyle = .fullScreen
+                    self.present(survey, animated: true)
                 }
             }).disposed(by: disposeBag)
     }
