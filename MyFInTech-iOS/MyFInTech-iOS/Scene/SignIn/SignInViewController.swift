@@ -41,7 +41,7 @@ class SignInViewController: UIViewController {
             .alignItems(.start)
             .define {
                 $0.addItem(signInLabel)
-                $0.addItem(kakaoSignInButton)
+//                $0.addItem(kakaoSignInButton)
                 $0.addItem(googleSignInButton)
             }
         
@@ -55,14 +55,15 @@ class SignInViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        flexContainer.pin.all(view.pin.safeArea)
+        flexContainer.pin.all()
         flexContainer.flex.layout()
         googleSignInButton.flex.layout(mode: .adjustHeight)
         kakaoSignInButton.flex.layout(mode: .adjustHeight)
         
-        signInLabel.pin.top(80).left(24)
-        kakaoSignInButton.pin.bottom(48).horizontally(28)
-        googleSignInButton.pin.above(of: kakaoSignInButton, aligned: .center).marginBottom(10)
+        signInLabel.pin.top(134).left(24)
+        googleSignInButton.pin.bottom(68).horizontally(28)
+//        kakaoSignInButton.pin.bottom(48).horizontally(28)
+//        googleSignInButton.pin.above(of: kakaoSignInButton, aligned: .center).marginBottom(10)
     }
     
     func bind() {

@@ -18,7 +18,7 @@ class ProductCell: UICollectionViewCell {
         get { companyLabel.text ?? "" }
         set { 
             companyLabel.text = newValue
-            companyImageView.image = newValue.convertCopany()
+            companyImageView.image = newValue.convertCompany()
         }
     }
     var name: String {
@@ -75,8 +75,6 @@ class ProductCell: UICollectionViewCell {
         super.layoutSubviews()
         self.flex.layout()
         
-//        self.pin.height(100)
-        
         rankingLabel.pin
             .vCenter()
         companyLabel.pin
@@ -85,6 +83,7 @@ class ProductCell: UICollectionViewCell {
             .below(of: companyLabel)
             .marginTop(4)
             .marginBottom(28)
+            .width(300)
         companyImageView.pin
             .width(48)
             .height(48)

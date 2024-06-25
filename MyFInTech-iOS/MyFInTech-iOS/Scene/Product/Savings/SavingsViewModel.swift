@@ -47,7 +47,10 @@ class SavingsViewModel: BaseViewModel {
             target: "상품별 가입 조건 정보 참고"
         ),
         Descriptions(
-            name: "군인적금/장병내일준비적금",
+            name: """
+            군인적금
+            /장병 내일준비적금
+            """,
             detail: """
             군인적금
              : 군인을 대상으로 제공하는 적금 상품이에요.

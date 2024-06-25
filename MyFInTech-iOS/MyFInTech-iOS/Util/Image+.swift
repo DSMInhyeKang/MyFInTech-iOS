@@ -8,7 +8,7 @@
 import UIKit
 
 extension String {
-    func convertCopany() -> UIImage {
+    func convertCompany() -> UIImage {
         switch self {
         case "광주은행", "전북은행":
             return .광주은행
@@ -59,7 +59,7 @@ extension String {
             return .외환
         case "파킹통장":
             return .파킹통장
-        case "군인적금/장병내일준비적금":
+        case "군인적금\n/장병 내일준비적금":
             return .군인적금
         case "청년적금/청년도약계좌":
             return .청년적금

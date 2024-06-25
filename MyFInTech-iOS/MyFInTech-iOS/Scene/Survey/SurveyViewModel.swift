@@ -11,8 +11,18 @@ import RxCocoa
 
 class SurveyViewModel: BaseViewModel {
     var disposeBag = DisposeBag()
-    let surveyQuestions = ["어떤 투자 방식을 원하시나요?", "", "", ""]
-    let surveyOptions = [["수익률과 원금 손실 위험성이 낮은 재테크", " 수익률과 원금 손실 위험성이 높은 재테크"], [], [], []]
+    let surveyQuestions = [
+        "어떤 투자 방식을 원하시나요?",
+        "투자에 사용할 금액은 어느 정도인가요?",
+        "투자에 소요할 기간은 어느 정도인가요?",
+        "다음 중 원하는 자산 운용 방식을 선택해주세요."
+    ]
+    let surveyOptions = [
+        ["수익률과 원금 손실 위험성이 낮은 재테크", "수익률과 원금 손실 위험성이 높은 재테크"],
+        ["1천만원 미만", "1천만원 이상"],
+        ["2년 이하", "3년 이상"],
+        ["전문가가 대신 자산 운용", "직접 자산 운용"]
+    ]
     
     struct Input {
         

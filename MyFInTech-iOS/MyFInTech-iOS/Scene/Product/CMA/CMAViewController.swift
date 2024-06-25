@@ -1,17 +1,18 @@
 //
-//  DepositViewController.swift
+//  CMAViewController.swift
 //  MyFInTech-iOS
 //
-//  Created by 강인혜 on 6/19/24.
+//  Created by 강인혜 on 6/21/24.
 //
 
 import UIKit
-import SnapKit
+import FlexLayout
+import PinLayout
 import RxSwift
 import RxCocoa
 
-class DepositViewController: UIViewController {
-    private let viewModel = DepositViewModel()
+class CMAViewController: UIViewController {
+    private let viewModel = CMAViewModel()
     private let disposeBag = DisposeBag()
     
     private let scrollView: UIScrollView = {
@@ -35,6 +36,7 @@ class DepositViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.isTranslucent = true
         view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(flexContainer)
@@ -44,7 +46,7 @@ class DepositViewController: UIViewController {
             collectionView
         ].forEach { flexContainer.addSubview($0) }
         
-        selectionView.types = ["정기예금", "파킹통장", "MMDA"]
+        selectionView.types = ["발행어음형", "RP형", "MMF형", "MMW형"]
         
         bind()
     }
@@ -67,14 +69,14 @@ class DepositViewController: UIViewController {
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(selectionView.snp.bottom).offset(1.5)
-            $0.bottom.equalToSuperview().inset(30)
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(500).priority(.low)
             $0.horizontalEdges.equalToSuperview()
         }
     }
     
     func bind() {
-        let input = DepositViewModel.Input(viewDidLoad: Observable.just(()))
+        let input = CMAViewModel.Input(viewDidLoad: Observable.just(()))
         let output = viewModel.transform(input: input)
         
         selectionView.selected
@@ -98,14 +100,6 @@ class DepositViewController: UIViewController {
                         cell.company = products.company
                         cell.name = products.name
                     }.disposed(by: disposeBag)
-                
-                collectionView.rx.itemSelected
-                    .subscribe(onNext: { path in
-                        let detail = DepositDetailViewController()
-                        detail.deposit = output.products.value[idx][path.row]
-                        detail.modalPresentationStyle = .overFullScreen
-                        self.present(detail, animated: false)
-                    }).disposed(by: disposeBag)
             }).disposed(by: disposeBag)
         
         collectionView.rx.observe(CGSize.self, "contentSize")
@@ -120,9 +114,10 @@ class DepositViewController: UIViewController {
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
-struct DepositViewController_Preview: PreviewProvider {
+struct CMAViewController_Preview: PreviewProvider {
     static var previews: some View {
-        DepositViewController().toPreview()
+        CMAViewController().toPreview()
     }
 }
 #endif
+

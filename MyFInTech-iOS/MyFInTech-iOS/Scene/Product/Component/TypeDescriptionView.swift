@@ -35,6 +35,7 @@ class TypeDescriptionView: UIView {
     
     private let typeLabel: UILabel = {
         $0.font = .pretendard(.Bold, 32)
+        $0.numberOfLines = 0
         $0.textColor = .black
         return $0
     }(UILabel())

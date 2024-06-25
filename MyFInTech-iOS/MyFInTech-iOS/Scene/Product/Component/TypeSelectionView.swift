@@ -20,14 +20,14 @@ class TypeSelectionView: UIView {
         $0.setTitleTextAttributes(
             [
                 .foregroundColor: UIColor.gray2,
-                .font: UIFont.pretendard(.Medium, 18)
+                .font: UIFont.pretendard(.SemiBold, 18)
             ],
             for: .normal
         )
         $0.setTitleTextAttributes(
             [
                 .foregroundColor: UIColor.segment,
-                .font: UIFont.pretendard(.Medium, 18)
+                .font: UIFont.pretendard(.SemiBold, 18)
             ],
             for: .selected
         )
@@ -53,7 +53,7 @@ class TypeSelectionView: UIView {
         
         self.backgroundColor = .white
         segmentControl.selectedSegmentIndex = 0
-        
+
         self.flex.define {
             $0.addItem(segmentControl)
             $0.addItem(underlineView)
@@ -74,10 +74,9 @@ class TypeSelectionView: UIView {
         super.layoutSubviews()
         
         segmentControl.removeAllSegments()
-        
         self.types.enumerated().forEach {
             self.segmentControl.insertSegment(withTitle: $1, at: $0, animated: true)
-            segmentControl.selectedSegmentIndex = 0
+            segmentControl.selectedSegmentIndex = selected.value
         }
         
         segmentControl.pin

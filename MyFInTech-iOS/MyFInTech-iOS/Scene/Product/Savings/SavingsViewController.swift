@@ -51,7 +51,7 @@ class SavingsViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         scrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
         }
         flexContainer.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
@@ -67,7 +67,7 @@ class SavingsViewController: UIViewController {
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(selectionView.snp.bottom).offset(1.5)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(30)
             $0.height.equalTo(500).priority(.low)
             $0.horizontalEdges.equalToSuperview()
         }
@@ -79,6 +79,7 @@ class SavingsViewController: UIViewController {
         
         selectionView.selected
             .subscribe(onNext: { [unowned self] idx in
+                print("Selected: ", idx)
                 descriptionView.name = viewModel.descriptions.value[idx].name
                 descriptionView.detail = viewModel.descriptions.value[idx].detail
                 descriptionView.target = viewModel.descriptions.value[idx].target
@@ -98,6 +99,14 @@ class SavingsViewController: UIViewController {
                         cell.company = products.company
                         cell.name = products.name
                     }.disposed(by: disposeBag)
+                
+                collectionView.rx.itemSelected
+                    .subscribe(onNext: { path in
+                        let detail = SavingDetailViewController()
+                        detail.saving = output.products.value[idx][path.row]
+                        detail.modalPresentationStyle = .overFullScreen
+                        self.present(detail, animated: false)
+                    }).disposed(by: disposeBag)
             }).disposed(by: disposeBag)
         
         collectionView.rx.observe(CGSize.self, "contentSize")

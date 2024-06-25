@@ -18,12 +18,13 @@ class SurveyViewController: UIViewController, View {
     let viewModel = SurveyViewModel()
     
     private let flexContainer = UIView()
-    private let questionTextView: UITextView = {
+    private let questionLabel: UILabel = {
         $0.text = "정기적으로\n금액을 불입할\n의향이 있다."
         $0.textColor = .black
         $0.font = .pretendard(.Bold, 32)
+        $0.numberOfLines = 0
         return $0
-    }(UITextView())
+    }(UILabel())
     private let yesButton: UIButton = {
         $0.setTitle("예", for: .normal)
         $0.setTitleColor(.white, for: .normal)
@@ -52,25 +53,26 @@ class SurveyViewController: UIViewController, View {
             .direction(.column)
             .alignItems(.start)
             .define {
-                $0.addItem(questionTextView)
+                $0.addItem(questionLabel)
                 $0.addItem(yesButton).cornerRadius(8)
                 $0.addItem(noButton).cornerRadius(8)
             }
     }
     
     override func viewDidLayoutSubviews() {
-        flexContainer.pin.all(view.pin.safeArea)
-        flexContainer.flex.layout()
+        flexContainer.pin.all()
         yesButton.flex.layout(mode: .adjustHeight)
         noButton.flex.layout(mode: .adjustHeight)
         
-        questionTextView.pin.top(80).left(24)
-        noButton.pin.bottom(48).horizontally(28).height(56)
+        questionLabel.pin.top(134)
+            .horizontally(24)
+        noButton.pin.bottom(62).horizontally(28).height(56)
         yesButton.pin
             .above(of: noButton, aligned: .center)
             .width(of: noButton)
             .height(of: noButton)
             .marginBottom(12)
+        questionLabel.flex.layout(mode: .adjustHeight)
     }
     
     func bind(reactor: SurveyReactor) {
@@ -91,12 +93,15 @@ class SurveyViewController: UIViewController, View {
         reactor.state.map { $0.cnt }
             .subscribe(with: self, onNext: { owner, cnt in
                 if cnt < 4 {
-                    owner.questionTextView.text = owner.viewModel.surveyQuestions[cnt]
+                    owner.questionLabel.text = owner.viewModel.surveyQuestions[cnt]
                     owner.yesButton.setTitle(owner.viewModel.surveyOptions[cnt][0], for: .normal)
                     owner.noButton.setTitle(owner.viewModel.surveyOptions[cnt][1], for: .normal)
                 } else { 
                     let input = SurveyViewModel.Input()
                     let output = owner.viewModel.transform(input: input)
+                    
+                    let home = HomeViewController()
+                    self.navigationController?.pushViewController(home, animated: true)
                 }
             }).disposed(by: disposeBag)
         surveyAnswers

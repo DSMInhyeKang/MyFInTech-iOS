@@ -92,10 +92,22 @@ class HomeViewController: UIViewController {
                     self.navigationController?.pushViewController(DepositViewController(), animated: true)
                 case "적금":
                     self.navigationController?.pushViewController(SavingsViewController(), animated: true)
+                case "CMA":
+                    self.navigationController?.pushViewController(CMAViewController(), animated: true)
                 default:
                     print("어떤상품인가용")
                 }
             }).disposed(by: disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
 }
 
