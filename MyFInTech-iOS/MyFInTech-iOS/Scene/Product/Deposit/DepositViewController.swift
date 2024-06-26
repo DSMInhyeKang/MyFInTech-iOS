@@ -13,6 +13,7 @@ import RxCocoa
 class DepositViewController: UIViewController {
     private let viewModel = DepositViewModel()
     private let disposeBag = DisposeBag()
+    private var collectionViewDisposeBag = DisposeBag()
     
     private let scrollView: UIScrollView = {
         $0.showsVerticalScrollIndicator = false
@@ -79,6 +80,8 @@ class DepositViewController: UIViewController {
         
         selectionView.selected
             .subscribe(onNext: { [unowned self] idx in
+                collectionViewDisposeBag = DisposeBag()
+                
                 descriptionView.name = viewModel.descriptions.value[idx].name
                 descriptionView.detail = viewModel.descriptions.value[idx].detail
                 descriptionView.target = viewModel.descriptions.value[idx].target
@@ -97,7 +100,7 @@ class DepositViewController: UIViewController {
                         cell.ranking = row + 1
                         cell.company = products.company
                         cell.name = products.name
-                    }.disposed(by: disposeBag)
+                    }.disposed(by: collectionViewDisposeBag)
                 
                 collectionView.rx.itemSelected
                     .subscribe(onNext: { path in
@@ -105,7 +108,7 @@ class DepositViewController: UIViewController {
                         detail.deposit = output.products.value[idx][path.row]
                         detail.modalPresentationStyle = .overFullScreen
                         self.present(detail, animated: false)
-                    }).disposed(by: disposeBag)
+                    }).disposed(by: collectionViewDisposeBag)
             }).disposed(by: disposeBag)
         
         collectionView.rx.observe(CGSize.self, "contentSize")

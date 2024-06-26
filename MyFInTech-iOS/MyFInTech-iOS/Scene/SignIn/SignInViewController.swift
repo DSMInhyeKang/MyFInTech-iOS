@@ -92,7 +92,7 @@ class SignInViewController: UIViewController {
                 if $0 == true {
                     let survey = SurveyViewController(reactor: SurveyReactor())
                     survey.modalPresentationStyle = .fullScreen
-                    self.present(survey, animated: true)
+                    self.navigationController?.pushViewController(survey, animated: true)
                 }
             }).disposed(by: disposeBag)
     }

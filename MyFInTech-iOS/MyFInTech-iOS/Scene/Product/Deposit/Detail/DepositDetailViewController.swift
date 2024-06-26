@@ -196,7 +196,7 @@ class DepositDetailViewController: UIViewController {
             $0.centerX.equalToSuperview()
         }
         maxRateLabel.snp.makeConstraints {
-            $0.top.equalTo(companyLabel.snp.bottom).offset(32)
+            $0.top.equalTo(companyLabel.snp.bottom).offset(30)
             $0.height.equalTo(19)
             $0.right.equalTo(contentView.snp.centerX).offset(-12)
         }
@@ -217,7 +217,7 @@ class DepositDetailViewController: UIViewController {
             $0.left.equalTo(defaultLabel.snp.right).offset(10)
         }
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(defaultRateLabel.snp.bottom).offset(40)
+            $0.top.equalTo(defaultRateLabel.snp.bottom).offset(32)
             $0.bottom.equalToSuperview().inset(24)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }

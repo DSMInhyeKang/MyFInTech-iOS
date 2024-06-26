@@ -13,6 +13,7 @@ import RxCocoa
 class SavingsViewController: UIViewController {
     private let viewModel = SavingsViewModel()
     private let disposeBag = DisposeBag()
+    private var collectionViewDisposeBag = DisposeBag()
     
     private let scrollView: UIScrollView = {
         $0.showsVerticalScrollIndicator = false
@@ -79,7 +80,8 @@ class SavingsViewController: UIViewController {
         
         selectionView.selected
             .subscribe(onNext: { [unowned self] idx in
-                print("Selected: ", idx)
+                collectionViewDisposeBag = DisposeBag()
+                
                 descriptionView.name = viewModel.descriptions.value[idx].name
                 descriptionView.detail = viewModel.descriptions.value[idx].detail
                 descriptionView.target = viewModel.descriptions.value[idx].target
@@ -98,7 +100,7 @@ class SavingsViewController: UIViewController {
                         cell.ranking = row + 1
                         cell.company = products.company
                         cell.name = products.name
-                    }.disposed(by: disposeBag)
+                    }.disposed(by: collectionViewDisposeBag)
                 
                 collectionView.rx.itemSelected
                     .subscribe(onNext: { path in
@@ -106,7 +108,7 @@ class SavingsViewController: UIViewController {
                         detail.saving = output.products.value[idx][path.row]
                         detail.modalPresentationStyle = .overFullScreen
                         self.present(detail, animated: false)
-                    }).disposed(by: disposeBag)
+                    }).disposed(by: collectionViewDisposeBag)
             }).disposed(by: disposeBag)
         
         collectionView.rx.observe(CGSize.self, "contentSize")

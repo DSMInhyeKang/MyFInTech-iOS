@@ -47,7 +47,7 @@ extension String {
 
     func convertProduct() -> UIImage {
         switch self {
-        case "예금", "정기예금":
+        case "예금", "정기예금", "MMDA":
             return .예금
         case "적금", "정기적금", "자유적금":
             return .적금
@@ -73,6 +73,23 @@ extension String {
             return .주식
         case "ISA":
             return .ISA
+        default:
+            return UIImage(systemName: "square.fill") ?? .init()
+        }
+    }
+    
+    func convertType() -> UIImage {
+        switch self {
+        case "단기 공격투자형", "장기 공격투자형":
+            return .object4
+        case "단기 적극투자형", "장기 적극투자형":
+            return .object2
+        case "단기 위험중립형", "장기 위험중립형":
+            return .object1
+        case "단기 안정추구형", "장기 안정추구형":
+            return .object5
+        case "단기 안정형", "장기 안정형":
+            return .object3
         default:
             return UIImage(systemName: "square.fill") ?? .init()
         }
